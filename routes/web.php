@@ -14,5 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+Route::get('/register', function () {
+    return view('register');
+});
+Route::get('/login', function () {
+    return view('login');
+});
+Route::get('/users', function () {
+    return view('users/index');
+});
+Route::get('/users/profile', function () {
+    return view('users/profile');
+});
+Route::get('/nfts', function () {
+    return view('nfts/index');
+});
+Route::get('/nfts/detail', function () {
+    return view('nfts/detail');
 });
