@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NFTController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +29,12 @@ Route::get('/users', function () {
 Route::get('/users/profile', function () {
     return view('users/profile');
 });
-Route::get('/nfts', function () {
-    return view('nfts/index');
-});
+Route::get('/nfts', [NFTController::class, 'index']);
+//Route::get('/nfts/{{ id }})', [NFTController::class, 'index']);
+
 Route::get('/nfts/detail', function () {
     return view('nfts/detail');
 });
+
+//Route::post('/nfts', [UserController::class, 'edit']);
+//Route::post('/nfts', [UserController::class, 'destroy']);
