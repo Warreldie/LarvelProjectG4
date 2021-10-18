@@ -14,9 +14,8 @@ use App\Http\Controllers\NFTController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/',  [NFTController::class, 'indexpage']);
+
 Route::get('/register', function () {
     return view('register');
 });

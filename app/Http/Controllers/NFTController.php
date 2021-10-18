@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 
 class NFTController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $nfts = \DB::table('nfts')->get();
         $data['nfts'] = $nfts;
         return view('nfts/index', $data);
+    }
+    public function indexpage()
+    {
+        $nfts = \DB::table('nfts')->get();
+        $data['nfts'] = $nfts;
+        return view('index', $data);
     }
 }

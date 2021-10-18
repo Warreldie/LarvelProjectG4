@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            //CollectionSeeder::class,
-            //UserSeeder::class
+            // CollectionSeeder::class,
+            // UserSeeder::class
         ]);
         //\App\Models\Nft::factory(10)->create();
         //\App\Models\Comment::factory(20)->create();
