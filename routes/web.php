@@ -35,6 +35,7 @@ Route::get('/nfts', [NFTController::class, 'index']);
 Route::get('/nfts/detail', function () {
     return view('nfts/detail');
 });
-
+Route::get('/nfts/create', [UserController::class, 'create']);
+Route::post('/nfts/create', [UserController::class, 'store']);
 //Route::post('/nfts', [UserController::class, 'edit']);
 //Route::post('/nfts', [UserController::class, 'destroy']);

@@ -11,4 +11,12 @@ class NFTController extends Controller
         $data['nfts'] = $nfts;
         return view('nfts/index', $data);
     }
+    public function create()
+    {
+        return view('nfts/create');
+    }
+    public function store(Request $request)
+    {
+        //db insert
+    }
 }
