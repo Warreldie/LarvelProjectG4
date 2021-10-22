@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Models\Nft;
 
 class NFTController extends Controller
 {
@@ -17,6 +18,11 @@ class NFTController extends Controller
     }
     public function store(Request $request)
     {
-        //db insert
+        $nft = new Nft();
+        $nft->name = $request->input('name');
+        $nft->description = $request->input('description');
+        $nft->collection_id = $request->input('collection');
+        $nft->save();
+        return redirect('nfts/');
     }
 }

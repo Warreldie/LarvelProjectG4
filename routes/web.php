@@ -17,25 +17,16 @@ use App\Http\Controllers\NFTController;
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/register', function () {
-    return view('register');
-});
-Route::get('/login', function () {
-    return view('login');
-});
-Route::get('/users', function () {
-    return view('users/index');
-});
-Route::get('/users/profile', function () {
-    return view('users/profile');
-});
+Route::get('/register', function () {return view('register');});
+Route::get('/login', function () {return view('login');});
+Route::get('/users', function () {return view('users/index');});
+Route::get('/users/profile', function () {return view('users/profile');});
+
 Route::get('/nfts', [NFTController::class, 'index']);
 //Route::get('/nfts/{{ id }})', [NFTController::class, 'index']);
-
-Route::get('/nfts/detail', function () {
-    return view('nfts/detail');
-});
+Route::get('/nfts/detail', function () {return view('nfts/detail');});
 Route::get('/nfts/create', [NFTController::class, 'create']);
-Route::post('/nfts/create', [NFTController::class, 'store']);
+Route::post('/nfts/store', [NFTController::class, 'store']);
+
 //Route::post('/nfts', [UserController::class, 'edit']);
 //Route::post('/nfts', [UserController::class, 'destroy']);
