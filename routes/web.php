@@ -27,6 +27,9 @@ Route::get('/users', function () {
     return view('users/index');
 });
 Route::get('/users/profile/{id}', [UserController::class, "profile"]);
+
+Route::get('/users/profile/{id}/edit', [UserController::class, "edit"]);
+
 Route::get('/nfts', function () {
     return view('nfts/index');
 });

@@ -11,4 +11,10 @@ class UserController extends Controller
         $data["user"] = $user;
         return view("users/profile", $data);
     }
+
+    public function edit($id){
+        $user = \DB::table("users")->where("id", $id)->first();
+        $data["user"] = $user;
+        return view("users/edit", $data);
+    }
 }

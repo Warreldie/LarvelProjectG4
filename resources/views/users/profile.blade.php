@@ -8,8 +8,10 @@
 </head>
 <body>
     <div>
+        <a href="/users/profile/{{$user->id}}/edit">edit profile</a>
         <h1>{{$user->name}}</h1>
         <img src="{{ asset('storage/' .$user->picture) }}" alt="">
+        <p>{{$user->description}}</p>
     </div>
 </body>
 </html>
