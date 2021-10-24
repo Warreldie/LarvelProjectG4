@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,7 @@ Route::get('/login', function () {
 Route::get('/users', function () {
     return view('users/index');
 });
-Route::get('/users/profile', function () {
-    return view('users/profile');
-});
+Route::get('/users/profile/{id}', [UserController::class, "profile"]);
 Route::get('/nfts', function () {
     return view('nfts/index');
 });
