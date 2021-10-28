@@ -26,7 +26,11 @@ Route::get('/login', function () {
 Route::get('/users', function () {
     return view('users/index');
 });
+
+
 Route::get('/users/profile/{id}', [UserController::class, "profile"]);
+
+Route::post('/users/profile/{id}/update', [UserController::class, "update"]);
 
 Route::get('/users/profile/{id}/edit', [UserController::class, "edit"]);
 

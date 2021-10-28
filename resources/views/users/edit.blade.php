@@ -9,9 +9,10 @@
 <body>
     <div>
     <a href="/users/profile/{{$user->id}}">Back to profile</a>
-        <form action="" style="display:flex; flex-direction:column; max-width:400px">
+        <form method="post" action={{url("users/profile/{$user->id}/update")}} style="display:flex; flex-direction:column; max-width:400px">
+           @csrf
             <img style="width:100px;" src="{{ asset('storage/' .$user->picture) }}" alt="">
-            <label for="profile">Profile Picture</label>
+            <label for="picture">Profile Picture</label>
             <input type="file" name="picture" id="picture">
             <label for="name">Username</label>
             <input required id="name" name="name" type="text" value="{{$user->name}}">
