@@ -25,8 +25,6 @@ class UserController extends Controller
         $user->name = $request->input("name");
         $user->email = $request->input("email");
         $user->description = $request->input("description");
-  
-        var_dump($request->hasFile("picture"));
 
         if ($request->hasFile('picture')) {
             $destination_path = "public/images/profiles";
@@ -39,5 +37,12 @@ class UserController extends Controller
 
         $user->save();
         return redirect("/users/profile/$id");
+    }
+
+    public function deletePicture(Request $request, $id){
+        $user = User::find($id);
+        $user->picture = "images/default.jpeg/";
+        $user->save();
+        return redirect("/users/profile/$id/edit");
     }
 }

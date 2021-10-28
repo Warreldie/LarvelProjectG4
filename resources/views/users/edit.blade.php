@@ -12,6 +12,7 @@
         <form method="post" action={{url("users/profile/{$user->id}/update")}} enctype="multipart/form-data" style="display:flex; flex-direction:column; max-width:400px">
            @csrf
             <img style="width:100px;" src="{{ asset('storage/' .$user->picture) }}" alt="">
+            <a href="/users/profile/{{$user->id}}/deletePicture">Delete picture</a>
             <label for="picture">Profile Picture</label>
             <input type="file" name="picture" id="picture">
             <label for="name">Username</label>
@@ -23,5 +24,6 @@
             <input type="submit" value="Update profile">
         </form>
     </div>
+    <script src={{URL::asset("js/editProfile.js")}}></script>
 </body>
 </html>

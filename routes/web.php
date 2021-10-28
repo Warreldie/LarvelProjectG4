@@ -34,6 +34,8 @@ Route::post('/users/profile/{id}/update', [UserController::class, "update"]);
 
 Route::get('/users/profile/{id}/edit', [UserController::class, "edit"]);
 
+Route::get('/users/profile/{id}/deletePicture', [UserController::class, "deletePicture"]);
+
 Route::get('/nfts', function () {
     return view('nfts/index');
 });
