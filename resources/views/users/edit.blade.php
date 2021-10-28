@@ -9,7 +9,7 @@
 <body>
     <div>
     <a href="/users/profile/{{$user->id}}">Back to profile</a>
-        <form method="post" action={{url("users/profile/{$user->id}/update")}} style="display:flex; flex-direction:column; max-width:400px">
+        <form method="post" action={{url("users/profile/{$user->id}/update")}} enctype="multipart/form-data" style="display:flex; flex-direction:column; max-width:400px">
            @csrf
             <img style="width:100px;" src="{{ asset('storage/' .$user->picture) }}" alt="">
             <label for="picture">Profile Picture</label>
