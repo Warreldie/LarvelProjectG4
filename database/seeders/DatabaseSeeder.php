@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // CollectionSeeder::class,
-            // UserSeeder::class
+            //UserSeeder::class
         ]);
         //\App\Models\Nft::factory(10)->create();
         //\App\Models\Comment::factory(20)->create();

@@ -14,39 +14,17 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/',  [NFTController::class, 'indexpage']);
-
-Route::get('/register', function () {
-    return view('register');
-});
-Route::get('/login', function () {
-    return view('login');
-});
-Route::get('/users', function () {
-    return view('users/index');
-});
-Route::get('/users/profile', function () {
-    return view('users/profile');
-});
-Route::get('/nfts', [NFTController::class, 'index']);
-//Route::get('/nfts/{{ id }})', [NFTController::class, 'index']);
-
-
+Route::get('/', [NFTController::class, 'indexpage']);
+Route::get('/register', function () {return view('register');});
+Route::get('/login', function () {return view('login');});
+Route::get('/users', function () {return view('users/index');});
 
 Route::get('/users/profile/{id}', [UserController::class, "profile"]);
-
 Route::post('/users/profile/{id}/update', [UserController::class, "update"]);
-
 Route::get('/users/profile/{id}/edit', [UserController::class, "edit"]);
-
 Route::get('/users/profile/{id}/deletePicture', [UserController::class, "deletePicture"]);
 
-Route::get('/nfts', function () {
-    return view('nfts/index');
-});
-
+Route::get('/nfts', [NFTController::class, 'index']);
+Route::get('/nfts/create', [NFTController::class, 'create']);
+Route::post('/nfts/store', [NFTController::class, 'store']);
 Route::get('/nfts/{id}', [NFTController::class, 'details']);
-
-//Route::post('/nfts', [UserController::class, 'edit']);
-//Route::post('/nfts', [UserController::class, 'destroy']);
