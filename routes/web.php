@@ -45,9 +45,8 @@ Route::get('/users/profile/{id}/deletePicture', [UserController::class, "deleteP
 Route::get('/nfts', function () {
     return view('nfts/index');
 });
-Route::get('/nfts/detail', function () {
-    return view('nfts/detail');
-});
+
+Route::get('/nfts/{id}', [NFTController::class, 'details']);
 
 //Route::post('/nfts', [UserController::class, 'edit']);
 //Route::post('/nfts', [UserController::class, 'destroy']);

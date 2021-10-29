@@ -18,4 +18,10 @@ class NFTController extends Controller
         $data['nfts'] = $nfts;
         return view('index', $data);
     }
+
+    public function details($id){
+        $user = \DB::table("nfts")->where("id", $id)->first();
+        $data["nft"] = $user;
+        return view("nfts/detail", $data);
+    }
 }
