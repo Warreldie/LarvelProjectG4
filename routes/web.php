@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NFTController;
 
@@ -14,14 +14,17 @@ use App\Http\Controllers\NFTController;
 |
 */
 
-Route::get('/',  [NFTController::class, 'indexpage']);
+Route::get('/', function () {
+    return view('index');
+});
+Route::get('/register', [UserController::class, 'register']);
+Route::post('/register', [UserController::class, 'registerHandler']);
+Route::get('/login', [UserController::class, 'login']);
+Route::post('/login', [UserController::class, 'loginHandler']);
+Route::get('/logout', [UserController::class, 'logout']);
 
-Route::get('/register', function () {
-    return view('register');
-});
-Route::get('/login', function () {
-    return view('login');
-});
+
+
 Route::get('/users', function () {
     return view('users/index');
 });
