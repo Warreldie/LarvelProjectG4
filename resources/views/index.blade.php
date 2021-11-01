@@ -19,41 +19,11 @@
     </div>
     @endforeach --}}
 
-    <nav class="bg-gray font-headers text-base text-xl">
-        <div class="max-w-8xl mx-auto border border-red-400 h-20 pt-2">
-            <div class="flex justify-between pr-20 pl-20 items-center">
-                <div class="flex space-x-32 items-center">
-                    <!-- logo -->
-                    <div class="flex items-center">
-                        <a href="#"> <img  class="w-14 h-14" src="{{ asset('./../images/logo.png') }}" alt="logo"> </a>
-                        <span>Sea hackers</span>
-                    </div>
-                    <!-- search -->
-                    <div class="border-2 border-mainblue rounded pl-5 pr-5">
-                    <input type="text"  class="outline-none" placeholder="Search..." size="40">
-                    <button type="submit" class="">
-                        <img class="w-4" src="{{ asset('./../images/search.png') }}" alt="search">
-                    </button>
-                    </div>
-                </div>
-                    <!-- navigation -->
-                    <div class="flex space-x-5">
-                        <a href="">Home</a>
-                        <a href="">Collections</a>
-                        <a href="">Market</a>
-                        @if(Auth::check())
-                        <a href=""> <img class="h-6" src="{{ asset('./../images/profile.png') }}" alt="profile"></a>
-                        @else
-                        <a href="">login/register</a>
-                        @endif
-                        
-                    </div>
+<x-navigation/>
+<section class="h-40 bg-black">
 
-
-            </div>
-        </div>
-
-    </nav>
+</section>
+<script src="{{ asset('js/nav-dropdown.js') }}"></script>
 </body>
 </html>
 
