@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\validation\rules;
-
-//@throws \Illuminate\validation\ValidationException;
+use \Illuminate\validation\ValidationException;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class UserController extends Controller
 {
@@ -23,12 +23,13 @@ class UserController extends Controller
     public function registerHandler(Request $request){
         $user = new \App\Models\User();
 
-        //$request->validate([
-           // 'password' => [
-            //    'required','min:8'
-                
-          //  ]
-           // ]);
+        $validated = $request->validate([
+            'fname'=> 'required',
+            'lname' => 'required',
+            'email' => 'required|unique:users',
+            'password' => ['required', 'min:6','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/']
+        ]);
+
         $firstname = $request->input('fname');
         $lastname = $request->input('lname');
         $fullname = $firstname. ' ' .$lastname;
@@ -49,7 +50,7 @@ class UserController extends Controller
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
             
-            return view ('/users/login');
+            return view ('/index');
 
         }
         else{

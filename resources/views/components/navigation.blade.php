@@ -28,7 +28,7 @@
                         <div class="hidden z-10 absolute items-center border bg-white" id="dropdownlist">
                         <a class="block pt-2" href=""> My profile</a>
                         <a class="block pt-2" href=""> My collections</a>
-                        <a class="block pt-2" href=""> Logout</a>
+                        <a class="block pt-2" href="{{url('/logout')}}"> Logout</a>
   
                         </div>
 
