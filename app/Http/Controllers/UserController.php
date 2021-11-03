@@ -36,8 +36,10 @@ class UserController extends Controller
         $user -> name = $fullname;
         $user -> email = $request->input('email');
         $user -> password = Hash::make($request->input('password'));
+        $request->session()->flash('message', 'Regisration succesful, please login...');
         $user->save();
-        echo "user signup ok";
+        return view ('/users/login');
+        ;
         
     }
 
