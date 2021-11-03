@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\validation\rules;
 use \Illuminate\validation\ValidationException;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -56,8 +57,11 @@ class UserController extends Controller
 
         }
         else{
-            echo "login failed";
-        }; 
+            return Redirect::back()->withErrors([
+                'email' => 'password or email incorrect',
+                'password' => 'password or email incorrect'
+            ]);
+        };
         
     }
     public function logout(){

@@ -39,12 +39,20 @@
   </div>
   @endif
 
+
+
   <div class="text-center">
     <div class="flex justify-center">
     <img class="w-32" src="{{ asset('./images/logo.png') }}" alt="logo">
     </div>
   <p class="text-sm font-headers pb-5 mt-5">don't have an account yet? <a class="text-buttonHover underline" href="{{url('/register')}}">register here</a></p>
   </div>
+  @if ($errors->has('email'))
+    <div class="text-center text-white bg-red-400 rounded ">
+      <p>Email or password incorrect</p>
+    </div>
+      
+@endif
   <div>
   <form method="post" action="{{ url('/login') }}">
 @csrf
