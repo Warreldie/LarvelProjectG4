@@ -5,10 +5,16 @@ module.exports = {
     extend: {
       colors: {
         mainblue: '#BBD3D7',
+        h1: '#444444',
+        h3: '#6E797B',
+        buttonHover: '#8AC8D3'
       },
       fontFamily:{
         headers: 'Yanone Kaffeesatz, sans-serif',
-      }
+      },
+      backgroundImage: theme => ({
+        'home' : "url('/images/bg-home.png')",
+      }) 
     },
   },
   variants: {
