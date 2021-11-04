@@ -18,7 +18,8 @@
                     <!-- navigation -->
                     <div class="flex space-x-5">
                         <a href="{{url('/')}}">Home</a>
-                        <a href="">Collections</a>
+                        <a href="{{url('/collections')}}">Collections</a>
+                        <a href="{{url('/nfts')}}">NFTS</a>
                         <a href="">Market</a>
                         @if(Auth::check())
                         <div id="dropdown">
