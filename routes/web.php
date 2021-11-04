@@ -21,20 +21,17 @@ Route::post('/register', [UserController::class, 'registerHandler']);
 Route::get('/login', [UserController::class, 'login']);
 Route::post('/login', [UserController::class, 'loginHandler']);
 Route::get('/logout', [UserController::class, 'logout']);
-
-
-
-Route::get('/users', function () {
-    return view('users/index');
-});
-Route::get('/users/profile', function () {
-    return view('users/profile');
-});
+//User-blok
+Route::get('/users/profile/{id}', [UserController::class, "profile"]);
+Route::post('/users/profile/{id}/update', [UserController::class, "update"]);
+Route::get('/users/profile/{id}/edit', [UserController::class, "edit"]);
+Route::get('/users/profile/{id}/deletePicture', [UserController::class, "deletePicture"]);
+//NFT-blok
 Route::get('/nfts', [NFTController::class, 'index']);
 Route::get('/nfts/create', [NFTController::class, 'create']);
 Route::post('/nfts/store', [NFTController::class, 'store']);
 Route::get('/nfts/{id}', [NFTController::class, 'details']);
-
+//Collection-Blok
 Route::get('/collections', [CollectionController::class, 'index']);
 Route::get('/collections/create', [CollectionController::class, 'create']);
 Route::post('/collections/store', [CollectionController::class, 'store']);
