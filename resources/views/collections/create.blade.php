@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add NFT</title>
+<title>Create Collection</title>
 <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,30 +33,23 @@
         <div class="flex justify-center">
           <img class="w-32" src="{{ asset('./images/logo.png') }}" alt="logo">
         </div>
-        <h1 class="font-headers text-base text-xl z-20">Add a new NFT</h1>
+        <h1 class="font-headers text-base text-xl z-20">Add a new Collection</h1>
       </div>
 
       @if ($errors->has('nft'))
         <div class="text-center text-white bg-red-400 rounded ">
-          <p>NFT already exist</p>
+          <p>Collection already exist</p>
         </div>
       @endif
                   
       <div>
-        <form method="post" action="{{ url('/nfts/store') }}">
+        <form method="post" action="{{ url('/collections/store') }}">
           @csrf
-            <label class="text-1xl font-headers" for="name">Name NFT</label><br>
-            <input class="w-72 border-2 border-mainblue rounded outline-none  px-2 py-1 mb-5" type="name" id="name" name="name"><br>
+            <label class="text-1xl font-headers" for="title">Titel Collection</label><br>
+            <input class="w-72 border-2 border-mainblue rounded outline-none  px-2 py-1 mb-5" type="name" id="title" name="title"><br>
 
-            <label class="text-1xl font-headers" for="description">Description NFT</label><br>
+            <label class="text-1xl font-headers" for="description">Description Collection</label><br>
             <textarea class="w-full border-2 border-mainblue rounded outline-none px-2 py-1 mb-5" type="textarea" id="description" name="description"></textarea>
-
-            <label class="text-1xl font-headers" for="description">Collection</label><br>
-            <select class="w-72 border-2 border-mainblue rounded outline-none  px-2 py-1 mb-5" name="collection">
-              <option selected value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select><br>
 
             <div class="flex justify-center">
               <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit">Submit</button>

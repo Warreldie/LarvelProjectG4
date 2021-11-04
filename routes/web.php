@@ -2,6 +2,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NFTController;
+use App\Http\Controllers\CollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,9 @@ Route::get('/nfts', [NFTController::class, 'index']);
 Route::get('/nfts/create', [NFTController::class, 'create']);
 Route::post('/nfts/store', [NFTController::class, 'store']);
 Route::get('/nfts/{id}', [NFTController::class, 'details']);
+
+Route::get('/collections', [CollectionController::class, 'index']);
+Route::get('/collections/create', [CollectionController::class, 'create']);
+Route::post('/collections/store', [CollectionController::class, 'store']);
+Route::get('/collections/{id}', [CollectionController::class, 'details']);
 
