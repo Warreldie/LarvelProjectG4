@@ -17,7 +17,7 @@
 
     <x-navigation />
     <div class="flex h-screen justify-center items-center my-20">
-        <div class="bg-white px-20 py-5 rounded-xl shadow-xl mx-30 my-20">
+        <div class="bg-white px-20 py-5 rounded-xl shadow-xl mx-30">
             <div class="text-center max-w-xs ">
                 <div class="flex justify-center">
                     <img style="width:150px;" class="w-32 rounded-lg" src="{{ asset('storage/' . $user->picture) }}" alt="">
