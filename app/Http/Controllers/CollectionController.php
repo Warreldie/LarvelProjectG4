@@ -20,8 +20,10 @@ class CollectionController extends Controller
         return view('index', $data);
     }
     public function details($id){
-        $user = \DB::table("collections")->where("id", $id)->first();
-        $data["collection"] = $user;
+        $collections = \DB::table("collections")->where("id", $id)->first();
+        $nfts = \DB::table("nfts")->where("collection_id", $id)->get();
+        $data["collection"] = $collections;
+        $data["nfts"] = $nfts;
         return view("collections/detail", $data);
     }
     public function create()
