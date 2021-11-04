@@ -9,6 +9,9 @@ use Illuminate\validation\rules;
 use Illuminate\Http\Request;
 use \App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use \Illuminate\validation\ValidationException;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -62,20 +65,23 @@ class UserController extends Controller
     public function registerHandler(Request $request){
         $user = new \App\Models\User();
 
-        //$request->validate([
-           // 'password' => [
-            //    'required','min:8'
-                
-          //  ]
-           // ]);
+        $validated = $request->validate([
+            'fname'=> 'required',
+            'lname' => 'required',
+            'email' => 'required|unique:users',
+            'password' => ['required', 'min:6','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/']
+        ]);
+
         $firstname = $request->input('fname');
         $lastname = $request->input('lname');
         $fullname = $firstname. ' ' .$lastname;
         $user -> name = $fullname;
         $user -> email = $request->input('email');
         $user -> password = Hash::make($request->input('password'));
+        $request->session()->flash('message', 'Regisration succesful, please login...');
         $user->save();
-        echo "user signup ok";
+        return view ('/users/login');
+        ;
         
     }
 
@@ -88,12 +94,15 @@ class UserController extends Controller
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
             
-            return view ('/users/login');
+            return view ('/index');
 
         }
         else{
-            echo "login failed";
-        }; 
+            return Redirect::back()->withErrors([
+                'email' => 'password or email incorrect',
+                'password' => 'password or email incorrect'
+            ]);
+        };
         
     }
     public function logout(){
