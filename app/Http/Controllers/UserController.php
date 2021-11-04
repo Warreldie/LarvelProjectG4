@@ -41,16 +41,15 @@ class UserController extends Controller
 
             $user->picture = "images/profiles/" . $image_name;
         } 
-
         $user->save();
-        return redirect("/users/profile/$id");
+        return redirect("/profile/$id");
     }
 
     public function deletePicture(Request $request, $id){
         $user = User::find($id);
         $user->picture = "images/default.jpeg/";
         $user->save();
-        return redirect("/users/profile/$id/edit");
+        return redirect("/profile/$id/edit");
     }
 
     //registreer controller

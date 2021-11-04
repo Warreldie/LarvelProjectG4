@@ -22,10 +22,10 @@ Route::get('/login', [UserController::class, 'login']);
 Route::post('/login', [UserController::class, 'loginHandler']);
 Route::get('/logout', [UserController::class, 'logout']);
 //User-blok
-Route::get('/users/profile/{id}', [UserController::class, "profile"]);
-Route::post('/users/profile/{id}/update', [UserController::class, "update"]);
-Route::get('/users/profile/{id}/edit', [UserController::class, "edit"]);
-Route::get('/users/profile/{id}/deletePicture', [UserController::class, "deletePicture"]);
+Route::get('/profile/{id}', [UserController::class, "profile"]);
+Route::post('/profile/{id}/update', [UserController::class, "update"]);
+Route::get('/profile/{id}/edit', [UserController::class, "edit"]);
+Route::get('/profile/{id}/deletePicture', [UserController::class, "deletePicture"]);
 //NFT-blok
 Route::get('/nfts', [NFTController::class, 'index']);
 Route::get('/nfts/create', [NFTController::class, 'create']);
