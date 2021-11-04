@@ -25,7 +25,7 @@
                         <a href=""> <img class="h-6" id="dropdown-nav" src="{{ asset('./../images/profile.png') }}" alt="profile"></a>
 
                         <!-- dropdown items -->
-                        <div class="hidden z-10 absolute items-center border bg-white" id="dropdownlist">
+                        <div class="hidden z-10 absolute items-center bg-white px-2" id="dropdownlist">
                         <a class="block pt-2" href=""> My profile</a>
                         <a class="block pt-2" href=""> My collections</a>
                         <a class="block pt-2" href="{{url('/logout')}}"> Logout</a>
