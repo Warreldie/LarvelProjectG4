@@ -31,6 +31,9 @@ Route::get('/nfts', [NFTController::class, 'index']);
 Route::get('/nfts/create', [NFTController::class, 'create']);
 Route::post('/nfts/store', [NFTController::class, 'store']);
 Route::get('/nfts/{id}', [NFTController::class, 'details']);
+Route::get('/nfts/{id}/delete', [NFTController::class, "delete"]);
+Route::get('/nfts/{id}/edit', [NFTController::class, "edit"]);
+Route::post('/nfts/{id}/update', [NFTController::class, "update"]);
 //Collection-Blok
 Route::get('/collections', [CollectionController::class, 'index']);
 Route::get('/collections/create', [CollectionController::class, 'create']);
