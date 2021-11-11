@@ -22,7 +22,7 @@
           
           <div class="text-center max-w-xs">
             <div class="flex justify-center">
-              <img class="w-32" src="{{ asset('./images/logo.png') }}" alt="logo">
+              <img class="w-32" src="{{ asset('storage/' . $nft->picture) }}" alt="logo">
             </div>
             <h1 class="font-headers font-semibold text-6xl text-h1">
                 {{ $nft->name }}

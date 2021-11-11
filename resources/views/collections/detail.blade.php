@@ -16,8 +16,7 @@
 
     <x-navigation />
     <div class="flex h-screen justify-center items-center">
-
-        <div class="bg-white px-20 py-10 rounded-xl shadow-xl mx-30">
+        <div class="flex bg-white px-20 py-10 rounded-xl shadow-xl mx-30">
 
             <div class="text-center max-w-xs">
                 <div class="flex justify-center">
@@ -41,12 +40,12 @@
             </div>
         </div>
 
-        <div class="flex flex-row flex-wrap h-screen">
+        <div class="flex flex-row flex-wrap h-20">
             @foreach ($nfts as $nft)
                 <div class="bg-white m-10 px-20 py-10 rounded-xl shadow-xl">
                     <div class="text-center">
                         <div class="flex justify-center">
-                            <img class="w-32" src="{{ asset('./images/logo.png') }}" alt="logo">
+                            <img class="w-32" src="{{ asset('storage/' . $nft->picture) }}" alt="logo">
                         </div>
                         <h1 class="font-headers text-base text-xl z-20"><a href="/nfts/{{ $nft->id }}">{{ $nft->name }}</h1>
                     </div>
