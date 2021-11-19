@@ -52,7 +52,6 @@ class NFTController extends Controller
     }
     public function delete(Request $request, $id){
         $nft = NFT::where('id', $id)->firstorfail()->delete();
-        echo ("User Record deleted successfully.");
         return redirect('nfts/');
     }
     public function edit($id){

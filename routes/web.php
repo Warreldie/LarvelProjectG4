@@ -39,4 +39,7 @@ Route::get('/collections', [CollectionController::class, 'index']);
 Route::get('/collections/create', [CollectionController::class, 'create']);
 Route::post('/collections/store', [CollectionController::class, 'store']);
 Route::get('/collections/{id}', [CollectionController::class, 'details']);
+Route::get('/collections/{id}/delete', [CollectionController::class, "delete"]);
+Route::get('/collections/{id}/edit', [CollectionController::class, "edit"]);
+Route::post('/collections/{id}/update', [CollectionController::class, "update"]);
 

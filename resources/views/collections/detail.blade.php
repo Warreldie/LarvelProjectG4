@@ -29,13 +29,10 @@
                     {{ $collection->description }}
                 </h3> <br>
                 <div class="flex justify-center">
-                    <button
-                        class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover"
-                        type="submit">Edit</button>
+                    <a class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" href="/collections/{{$collection->id}}/edit">Edit</a>
                 </div><br>
                 <div class="flex justify-center">
-                    <button class="bg-red-400 px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-red-600"
-                        type="submit">Delete</button>
+                    <a class="bg-red-400 px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-red-600" href="/collections/{{ $collection->id }}/delete">Delete</a>
                 </div><br>
             </div>
         </div>
