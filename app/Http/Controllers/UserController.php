@@ -77,10 +77,18 @@ class UserController extends Controller
         $user -> name = $fullname;
         $user -> email = $request->input('email');
         $user -> password = Hash::make($request->input('password'));
-        $request->session()->flash('message', 'Regisration succesful, please login...');
+        $request->session()->flash('message', 'Registration succesful, Welcome!');
         $user->save();
-        return view ('/users/login');
-        ;
+
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+        if(Auth::attempt($credentials)){
+            $request->session()->regenerate();
+            
+            return view ('/index');
+        };
         
     }
 

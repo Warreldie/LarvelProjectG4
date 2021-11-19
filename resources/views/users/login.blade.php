@@ -26,18 +26,7 @@
 <div class="flex h-screen justify-center items-center">
 
   <div class="bg-white px-20 py-10 rounded-xl shadow-xl">
-  @if(Session::has('message'))
-  <div class="bg-green-400 text-center rounded text-white mb-5">
-    <p>
-    {{Session::get('message')}}
-    </p>
 
-    @php
-    Session::forget('message');
-    @endphp
-    
-  </div>
-  @endif
 
 
 

@@ -15,8 +15,21 @@
 
 <x-navigation/>
 <section class="bg-home bg-cover pb-40">
+@if(Session::has('message'))
+  <div class="bg-green-400 text-center rounded text-white mb-5">
+    <p>
+    {{Session::get('message')}}
+    </p>
+
+    @php
+    Session::forget('message');
+    @endphp
+    
+  </div>
+  @endif
     <!-- left side -->
     <div class="flex">
+
         <div class="mt-40 ml-32">
         <h1 class="font-headers font-semibold text-6xl text-h1">
             Together we can <br>
