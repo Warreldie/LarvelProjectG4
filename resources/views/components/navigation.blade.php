@@ -20,7 +20,7 @@
                         <a href="{{url('/')}}">Home</a>
                         <a href="{{url('/collections')}}">Collections</a>
                         <a href="{{url('/nfts')}}">NFTS</a>
-                        <a href="">Market</a>
+                        <a href="{{url('/market')}}">Market</a>
                         @if(Auth::check())
                         <div id="dropdown">
                         <a href=""> <img class="h-6" id="dropdown-nav" src="{{ asset('./../images/profile.png') }}" alt="profile"></a>

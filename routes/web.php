@@ -3,6 +3,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NFTController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\MarketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,5 @@ Route::get('/collections/create', [CollectionController::class, 'create']);
 Route::post('/collections/store', [CollectionController::class, 'store']);
 Route::get('/collections/{id}', [CollectionController::class, 'details']);
 
+//Market-Blok
+Route::get('/market', [MarketController::class, 'index']);

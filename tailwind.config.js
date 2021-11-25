@@ -15,7 +15,10 @@ module.exports = {
       },
       backgroundImage: theme => ({
         'home' : "url('/images/bg-home.png')",
-      }) 
+      }),
+      maxWidth:{
+        '1/2' : '500px',
+      } 
     },
   },
   variants: {
