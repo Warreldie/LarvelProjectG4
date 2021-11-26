@@ -26,3 +26,33 @@ document.querySelector("#priceDrDown").addEventListener("click", function(){
         priceArrow.classList.remove("rotate-180");
     }
 })
+
+//collection
+document.querySelector("#collectionDrDown").addEventListener("click", function(){
+    let colArrow = document.querySelector("#collectionArrow");
+    let colBars = document.querySelector(".future-content-coll");
+
+    if(colBars.classList.contains("hidden")){
+        colBars.classList.remove("hidden");
+        colArrow.classList.add("rotate-180");
+    }
+    else{
+        colBars.classList.add("hidden");
+        colArrow.classList.remove("rotate-180");
+    }
+})
+//catgories
+
+document.querySelector("#catDrDown").addEventListener("click", function(){
+    let catArrow = document.querySelector("#catArrow");
+    let catBars = document.querySelector(".future-content-cat");
+
+    if(catBars.classList.contains("hidden")){
+        catBars.classList.remove("hidden");
+        catArrow.classList.add("rotate-180");
+    }
+    else{
+        catBars.classList.add("hidden");
+        catArrow.classList.remove("rotate-180");
+    }
+})
