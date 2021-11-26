@@ -27,7 +27,7 @@
             <div class="bg-white m-10 px-20 py-10 rounded-xl shadow-xl max-h-60">
                 <div class="text-center">
                     <div class="flex justify-center">
-                        <img class="w-32" src="{{ asset('storage/' . $nft->picture) }}" alt="logo">
+                        <img class="w-32" src="https://gateway.pinata.cloud/ipfs/{{$nft->picture}}" alt="logo">
                     </div>
                     <h1 class="font-headers text-base text-xl z-20"><a href="/nfts/{{ $nft->id }}">{{ $nft->name }}</h1>
                 </div>
