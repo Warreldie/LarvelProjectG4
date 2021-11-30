@@ -42,8 +42,8 @@
         </div>
       @endif
                   
-      <div>
-        <form method="post" action="{{ url('/nfts/store') }}">
+      <div class="text-center">
+        <form method="post" action="{{ url('/nfts/store') }}" enctype="multipart/form-data">
           @csrf
             <label class="text-1xl font-headers" for="name">Name NFT</label><br>
             <input class="w-72 border-2 border-mainblue rounded outline-none  px-2 py-1 mb-5" type="name" id="name" name="name"><br>
@@ -51,11 +51,14 @@
             <label class="text-1xl font-headers" for="description">Description NFT</label><br>
             <textarea class="w-full border-2 border-mainblue rounded outline-none px-2 py-1 mb-5" type="textarea" id="description" name="description"></textarea>
 
+            <label class="text-1xl font-headers" for="picture">NFT Picture</label><br>
+            <input class="w-72 border-2 border-mainblue rounded outline-none  px-2 py-1 mb-5" type="file" name="picture" id="picture"><br>
+
             <label class="text-1xl font-headers" for="description">Collection</label><br>
             <select class="w-72 border-2 border-mainblue rounded outline-none  px-2 py-1 mb-5" name="collection">
-              <option selected value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              @foreach ($collections as $collection)
+              <option value="{{ $collection->id }}">{{ $collection->title }}</option>
+              @endforeach
             </select><br>
 
             <div class="flex justify-center">

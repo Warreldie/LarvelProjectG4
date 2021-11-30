@@ -38,4 +38,21 @@ class CollectionController extends Controller
         $collection->save();
         return redirect('collections/');
     }
+    public function delete(Request $request, $id){
+        $collection = Collection::where('id', $id)->firstorfail()->delete();
+        echo ("Collection deleted succesfully");
+        return redirect('collections/');
+    }
+    public function edit($id){
+        $nft = \DB::table("collections")->where("id", $id)->first();
+        $data["collection"] = $nft;
+        return view("collections/edit", $data);
+    }
+    public function update(Request $request, $id){
+        $collection = Collection::find($id);
+        $collection->title = $request->input("title");
+        $collection->description = $request->input("description");
+        $collection->save();
+        return redirect("/collections/$id");
+    }
 }
