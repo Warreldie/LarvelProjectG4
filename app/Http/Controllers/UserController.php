@@ -22,13 +22,23 @@ class UserController extends Controller
     }
 
     public function edit($id){
-        $user = \DB::table("users")->where("id", $id)->first();
-        $data["user"] = $user;
-        return view("users/edit", $data);
+        if(Auth::id() == $id){
+            $user = User::find($id);
+            $data["user"] = $user;
+            return view("users/edit", $data);
+        }  else {
+            abort(403);
+        }
+        
     }
 
     public function update(Request $request, $id){
         $user = User::find($id);
+
+        if ($request->user()->cannot('update', $user)) {
+            abort(403);
+        }
+
         $user->name = $request->input("name");
         $user->email = $request->input("email");
         $user->description = $request->input("description");

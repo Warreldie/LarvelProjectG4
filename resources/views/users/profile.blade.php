@@ -30,10 +30,12 @@
             <h3 class="font-headers text-base text-xl z-10">
                 {{$user->description}}
             </h3> <br>
+            @if (Auth::id() === $user->id)
             <div class="flex justify-center">
                 <a class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" href="/profile/{{$user->id}}/edit">Edit</a>
             </div><br>
           </div>
+          @endif
         </div>
     </div>
 </body>
