@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Nft;
+use Illuminate\Support\Facades\Http;
 
 class NFTController extends Controller
 {
@@ -47,6 +48,27 @@ class NFTController extends Controller
 
         $nft->collection_id = $request->input('collection');
         $nft->mint_id = 0;
+
+        if($request->hasFile("picture")){
+            $url = $request->file("picture");
+            $upload_file_name = strtolower(str_replace(" ", "_", $request->input("name")));
+            $response = Http::withHeaders([
+                "pinata_api_key" => env("PINATA_API_KEY"), "pinata_secret_api_key" => env("PINATA_SECRET_API_KEY")
+            ])->attach("file", file_get_contents($url), $upload_file_name)->post("https://api.pinata.cloud/pinning/pinFileToIPFS", []);
+
+            $data = $response->json();
+
+            if(array_key_exists("IpfsHash", $data)){
+                $upload_file_hash = $data["IpfsHash"];
+                $size = $data["PinSize"];
+
+                if($size > 0) {
+                    $nft->picture = $upload_file_hash;
+                }
+            }
+            
+        }
+    
         $nft->save();
         return redirect('nfts/');
     }
