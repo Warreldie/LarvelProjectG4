@@ -72,8 +72,13 @@
 
             </div>
             <div class="future-content-coll hidden">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, explicabo. Ipsa eligendi at placeat blanditiis deleniti pariatur unde voluptatum vero rerum aliquam? Fugiat tempora dolorum consectetur perspiciatis quas ad magnam?</p>
+            @foreach ($collections as $collection)
+                <div>
+                    <input type="checkbox" id="collection{{$collection->id}}" name="collection{{$collection->id}}" checked>
+                    <label for="collection{{$collection->id}}">{{$collection->title}}</label>
                 </div>
+            @endforeach
+            </div>
             
 </div>
                 <div class="border-2 border-mainblue pt-5 pb-5" id="CatWrapper">
@@ -92,10 +97,18 @@
 
         
         <section>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, quos? Illum incidunt recusandae numquam sit asperiores exercitationem corporis? Amet perferendis in esse! Incidunt aliquam quidem consequuntur perspiciatis, eaque laboriosam alias.
-                Inventore nam cupiditate, impedit cumque doloremque ex repellendus, culpa odit voluptatibus nesciunt laborum fugiat fugit eius pariatur? Numquam culpa illum, recusandae modi, vero sequi dolore rerum, ad necessitatibus accusamus omnis?
-            </p>
+        <div class="flex flex-row flex-wrap h-screen">
+        @foreach ($nfts as $nft)
+            <div class="bg-white m-10 px-20 py-10 rounded-xl shadow-xl max-h-60">
+                <div class="text-center">
+                    <div class="flex justify-center">
+                        <img class="w-32" src="https://gateway.pinata.cloud/ipfs/{{$nft->picture}}" alt="logo">
+                    </div>
+                    <h1 class="font-headers text-base text-xl z-20"><a href="/nfts/{{ $nft->id }}">{{ $nft->name }}</h1>
+                </div>
+            </div>
+        @endforeach
+    </div>
         </section>
 
     </section>
