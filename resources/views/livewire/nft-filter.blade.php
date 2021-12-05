@@ -24,14 +24,14 @@
                 </div>
                 <p id="price-warning" class="bg-warningred hidden px-1 py2 "></p>
 
-                <div id="priceBars" class="text-center hidden">
+                <div id="priceBars" class="text-center">
                     <div class="flex justify-center">
                         <h4 class="text-xl pt-10">min price</h4>
                     </div>
                     <p class=""><span>$1</span> <span class="ml-32">$10.000</span></p>
-                    <input type="range" value="1" min="1" max="10000" class="appearance-none w-3/4 h-1 bg-mainblue rounded slider-thumb" id="min-slider" />
+                    <input wire:model="minPrice" value={{$minPrice}} type="range" min="1" max="10000" class="appearance-none w-3/4 h-1 bg-mainblue rounded slider-thumb" id="min-slider" />
                     <div class="flex justify-center">
-                        <p class="px-0.5 py-3 bg-mainblue w-1/4 rounded-xl">$ <span id="min-val"></span></p>
+                        <p class="px-0.5 py-3 bg-mainblue w-1/4 rounded-xl">$ <span id="min-val">{{$minPrice}}</span></p>
                     </div>
 
                     <div class="flex justify-center">
@@ -39,11 +39,11 @@
                     </div>
                     <div class="text-center">
                         <p class=""><span>$1</span> <span class="ml-32">$10.000</span></p>
-                        <input type="range" value="1" min="1" max="10000" class="appearance-none w-3/4 h-1 bg-mainblue rounded slider-thumb" id="max-slider" />
+                        <input wire:model="maxPrice" value={{$maxPrice}} type="range" min="1" max="10000" class="appearance-none w-3/4 h-1 bg-mainblue rounded slider-thumb" id="max-slider" />
                         <div class="flex justify-center">
-                            <p class="px-0.5 py-3 bg-mainblue w-1/4 rounded-xl">$ <span id="max-val"></span></p>
+                            <p class="px-0.5 py-3 bg-mainblue w-1/4 rounded-xl">$ <span id="max-val">{{$maxPrice}}</span></p>
                         </div>
-                        <a id="priceFilter" class="rounded bg-mainblue  py-0.5 px-8 text-regular shadow-md mt-5 ml-32" href="#">filter</a>
+                        <a wire:click="filter" id="priceFilter" class="rounded bg-mainblue  py-0.5 px-8 text-regular shadow-md mt-5 ml-32" href="#">filter</a>
 
                     </div>
                 </div>
