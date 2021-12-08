@@ -52,23 +52,31 @@
                 <div class="flex justify-center">
                     <h2 class="text-2xl">Collections</h2>
                 </div>
-                <div class="future-content-coll">
-                    <input wire:click="filter" wire:model="collectionFilter" type="radio" id="allCollections" name="collectionFilter" value="all" checked>
-                    <label wire:click="filter" for="allCollections">All</label><br>
-                    @foreach ($collections as $collection)
-                    <input wire:click="filter" wire:model="collectionFilter" type="radio" id="collection{{$collection->id}}" name="collectionFilter" value={{$collection->id}}>
-                    <label for="collection{{$collection->id}}">{{$collection->title}}</label><br>
-                    @endforeach
-                </div>
-
+                <form action="">
+                    <div class="future-content-coll">
+                        <input wire:click="filter" wire:model="collectionFilter" type="radio" id="allCollections" name="collectionFilter" value="all" checked>
+                        <label wire:click="filter" for="allCollections">All</label><br>
+                        @foreach ($collections as $collection)
+                        <input wire:click="filter" wire:model="collectionFilter" type="radio" id="collection{{$collection->id}}" name="collectionFilter" value={{$collection->id}}>
+                        <label for="collection{{$collection->id}}">{{$collection->title}}</label><br>
+                        @endforeach
+                    </div>
+                </form>
             </div>
             <div class="border-2 border-mainblue pt-5 pb-5" id="CatWrapper">
                 <div class="flex justify-center">
                     <h2 class="text-2xl">Categories</h2>
                 </div>
-                <div class="future-content-cat">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, explicabo. Ipsa eligendi at placeat blanditiis deleniti pariatur unde voluptatum vero rerum aliquam? Fugiat tempora dolorum consectetur perspiciatis quas ad magnam?</p>
-                </div>
+                <form action="">
+                    <div class="future-content-cat">
+                        <input wire:click="filter" wire:model="categoryFilter" type="radio" id="allCategories" name="categoryFilter" value="all" checked>
+                        <label for="allCollections">All</label><br>
+                        @foreach ($categories as $category)
+                        <input wire:click="filter" wire:model="categoryFilter" type="radio" id="category{{$category->id}}" name="categoryFilter" value={{$category->id}}>
+                        <label for="category{{$category->id}}">{{$category->name}}</label><br>
+                        @endforeach
+                    </div>
+                </form>
         </section>
 
 
