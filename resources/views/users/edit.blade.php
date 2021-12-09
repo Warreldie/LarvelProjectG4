@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;400;600&display=swap">
 </head>
 
 <body class="bg-gradient-to-r from-mainblue to-white">
@@ -22,6 +21,11 @@
                 <div class="flex justify-center">
                     <img style="width:150px;" class="w-32 rounded-lg" src="{{ asset('storage/' . $user->picture) }}" alt="">
                 </div><br>
+                @if($errors->has('email'))
+                <div class="text-center bg-red-400 text-white font-headers rounded px-1">
+                    <p>this email address is unvalid or has been used</p>
+                </div>
+                @endif
                 <form method="post" action={{ url("profile/{$user->id}/update") }} enctype="multipart/form-data">
                     @csrf
                     <label class="text-1xl font-headers" for="name">Username</label><br>

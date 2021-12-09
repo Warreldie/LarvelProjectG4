@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use \Illuminate\validation\ValidationException;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Redirect;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -40,6 +41,10 @@ class UserController extends Controller
         if ($request->user()->cannot('update', $user)) {
             abort(403);
         }
+
+        $validated = $request->validate([
+            'email' => 'required|unique:users',
+        ]);
 
         $user->name = $request->input("name");
         $user->email = $request->input("email");
