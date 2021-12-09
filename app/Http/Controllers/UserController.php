@@ -15,24 +15,26 @@ use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
-    public function profile($id){
+    public function profile($id)
+    {
         $user = \DB::table("users")->where("id", $id)->first();
         $data["user"] = $user;
         return view("users/profile", $data);
     }
 
-    public function edit($id){
-        if(Auth::id() == $id){
+    public function edit($id)
+    {
+        if (Auth::id() == $id) {
             $user = User::find($id);
             $data["user"] = $user;
             return view("users/edit", $data);
-        }  else {
+        } else {
             abort(403);
         }
-        
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $user = User::find($id);
 
         if ($request->user()->cannot('update', $user)) {
@@ -50,12 +52,13 @@ class UserController extends Controller
             $path = $request->file("picture")->storeAs($destination_path, $image_name);
 
             $user->picture = "images/profiles/" . $image_name;
-        } 
+        }
         $user->save();
         return redirect("/profile/$id");
     }
 
-    public function deletePicture(Request $request, $id){
+    public function deletePicture(Request $request, $id)
+    {
         $user = User::find($id);
         $user->picture = "images/default.jpeg/";
         $user->save();
@@ -63,30 +66,34 @@ class UserController extends Controller
     }
 
     //registreer controller
-    public function register(){
-        return view ('users/register');
+    public function register()
+    {
+        return view('users/register');
     }
     //login controller
-    public function login(){
-        return view ('users/login');
+    public function login()
+    {
+        return view('users/login');
     }
 
-    public function registerHandler(Request $request){
+    public function registerHandler(Request $request)
+    {
         $user = new \App\Models\User();
 
         $validated = $request->validate([
-            'fname'=> 'required',
+            'fname' => 'required',
             'lname' => 'required',
             'email' => 'required|unique:users',
-            'password' => ['required', 'min:6','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/']
+            'password' => ['required', 'min:6', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/']
         ]);
 
         $firstname = $request->input('fname');
         $lastname = $request->input('lname');
-        $fullname = $firstname. ' ' .$lastname;
-        $user -> name = $fullname;
-        $user -> email = $request->input('email');
-        $user -> password = Hash::make($request->input('password'));
+        $fullname = $firstname . ' ' . $lastname;
+        $user->name = $fullname;
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->picture = "images/default.jpeg";
         $request->session()->flash('message', 'Registration succesful, Welcome!');
         $user->save();
 
@@ -94,37 +101,34 @@ class UserController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        if(Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
-            return view ('/index');
+
+            return view('/index');
         };
-        
     }
 
-    public function loginHandler(Request $request){
+    public function loginHandler(Request $request)
+    {
 
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        if (Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
-            return view ('/index');
 
-        }
-        else{
+            return view('/index');
+        } else {
             return Redirect::back()->withErrors([
                 'email' => 'password or email incorrect',
                 'password' => 'password or email incorrect'
             ]);
         };
-        
     }
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
-        return view ('/users/login');
+        return view('/users/login');
     }
-
 }
