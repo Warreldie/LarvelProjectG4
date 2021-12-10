@@ -42,9 +42,11 @@ class UserController extends Controller
             abort(403);
         }
 
-        $validated = $request->validate([
-            'email' => 'required|unique:users',
-        ]);
+        if ($request->input("email") != $user->email) {
+            $validated = $request->validate([
+                'email' => 'required|unique:users',
+            ]);
+        }
 
         $user->name = $request->input("name");
         $user->email = $request->input("email");
