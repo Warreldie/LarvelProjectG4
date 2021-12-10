@@ -55,7 +55,8 @@ class UserController extends Controller
         if ($request->hasFile('picture')) {
             $destination_path = "public/images/profiles";
             $image = $request->file("picture");
-            $image_name = date('m/d/Y h:i:s a') . "pfp_" . $image->getClientOriginalName();
+            $date = date("d-m-Y h:i:s");
+            $image_name = strtotime($date) . "pfp_" . $image->getClientOriginalName();
             $path = $request->file("picture")->storeAs($destination_path, $image_name);
 
             $user->picture = "images/profiles/" . $image_name;
