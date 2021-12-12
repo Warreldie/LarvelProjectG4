@@ -23,7 +23,7 @@
 
 
 
-<div class="flex h-screen justify-center items-center">
+<div class="flex h-screen justify-center items-center ">
 
   <div class="bg-white px-20 py-10 rounded-xl shadow-xl">
 
