@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts/app')
 
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add NFT</title>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;400;600&display=swap">
-</head>
+@section('content')
 
-<body class="bg-gradient-to-r from-mainblue to-white">
+<section class="bg-gradient-to-r from-mainblue to-white block overflow-hidden pb-24">
 
   <x-navigation />
     
@@ -68,6 +58,5 @@
       </div>
     </div>
   </div>
-</body>
-
-</html>
+</section>
+@endsection
