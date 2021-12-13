@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts/market')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;400;600&display=swap" rel="stylesheet">
-    <title>Market</title>
-    @livewireStyles
-</head>
-
-<body>
+@section('content')
+<section>
     <x-navigation />
+    <div class="flex justify-center pt-5">
+    <div class="border-2 border-mainblue rounded pl-5 pr-5 pt-1 filter shadow-md max-w-8xl">
+                    <input type="text"  class="outline-none" placeholder="Search..." size="40">
+                    <button type="submit" class="">
+                        <img class="w-4" src="{{ asset('./../images/search.png') }}" alt="search">
+                    </button>
+                    </div>
+    </div>
     <livewire:nft-filter :collections="$collections" />
 
-
-    <script src="{{ asset('js/nav-dropdown.js') }}"></script>
-    <script src="{{ asset('js/sliders.js') }}"></script>
-    <script src="{{ asset('js/sidebar-market.js') }}"></script>
-    @livewireScripts
-</body>
+</section>
+@endsection
+@livewireScripts
 
 </html>
