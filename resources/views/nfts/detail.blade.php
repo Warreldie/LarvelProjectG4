@@ -13,7 +13,10 @@
 </head>
 
 <body class="bg-gradient-to-r from-mainblue to-white">
-
+    @php
+    $creator = $nft->Creator_id ;
+    $usersession = Auth::id();
+    @endphp
     <x-navigation />
     <div class="flex h-screen justify-center items-center">
 
@@ -29,12 +32,15 @@
                 <h3 class="font-headers text-base text-xl z-10">
                     {{ $nft->description }}
                 </h3> <br>
+                @if($creator == $usersession)
                 <div class="flex justify-center" id=" mintbutton">
                     <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit" id="myBtn">Mint</button>
                 </div><br>
+                @else
                 <div class="flex justify-center" id="mintdisable">
                     <p>This NFT has not been minted yet</p>
                 </div><br>
+                @endif
                 <div class="flex justify-center">
                     <a class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" href="/nfts/{{$nft->id}}/edit">Edit</a>
                 </div><br>
@@ -45,21 +51,7 @@
         </div>
     </div>
     <script src="{{ asset('js/nav-dropdown.js') }}"></script>
-    <!-- <script src="{{ asset('js/mint.js') }}"></script>-->
-    <script>
-        var creator = 5
-        var session = 5
-        var x = document.getElementById("mintbutton");
-        var y = document.getElementById("mintdisable");
-        if (creator === session) {
-            x.style.visibility = "visible";
-            y.style.visibility = "hidden";
 
-        } else {
-            x.style.visibility = "hidden";
-            y.style.visibility = "visible";
-        }
-    </script>
 </body>
 
 </html>
