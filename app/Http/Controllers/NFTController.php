@@ -21,9 +21,12 @@ class NFTController extends Controller
         return view('index', $data);
     }
 
-    public function details($id){
+    public function details($id)
+    {
         $nft = \DB::table("nfts")->where("id", $id)->first();
+        $comments = \DB::table('comments')->where("id", $id)->get();
         $data["nft"] = $nft;
+        $datacomments['comments'] = $comments;
         return view("nfts/detail", $data);
     }
     public function create()
@@ -37,7 +40,7 @@ class NFTController extends Controller
         $nft = new Nft();
         $nft->name = $request->input('name');
         $nft->description = $request->input('description');
-        
+
         $destination_path = "public/images/nfts";
 
         $image = $request->file("picture");
@@ -49,7 +52,7 @@ class NFTController extends Controller
         $nft->collection_id = $request->input('collection');
         $nft->mint_id = 0;
 
-        if($request->hasFile("picture")){
+        if ($request->hasFile("picture")) {
             $url = $request->file("picture");
             $upload_file_name = strtolower(str_replace(" ", "_", $request->input("name")));
             $response = Http::withHeaders([
@@ -58,35 +61,36 @@ class NFTController extends Controller
 
             $data = $response->json();
 
-            if(array_key_exists("IpfsHash", $data)){
+            if (array_key_exists("IpfsHash", $data)) {
                 $upload_file_hash = $data["IpfsHash"];
                 $size = $data["PinSize"];
 
-                if($size > 0) {
+                if ($size > 0) {
                     $nft->picture = $upload_file_hash;
                 }
             }
-            
         }
-    
+
         $nft->save();
         return redirect('nfts/');
     }
-    public function delete(Request $request, $id){
+    public function delete(Request $request, $id)
+    {
         $nft = NFT::where('id', $id)->firstorfail()->delete();
         return redirect('nfts/');
     }
-    public function edit($id){
+    public function edit($id)
+    {
         $nft = \DB::table("nfts")->where("id", $id)->first();
         $data["nft"] = $nft;
         return view("nfts/edit", $data);
     }
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $nft = NFT::find($id);
         $nft->name = $request->input("name");
         $nft->description = $request->input("description");
         $nft->save();
         return redirect("/nfts/$id");
     }
-
 }
