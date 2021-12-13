@@ -1,8 +1,10 @@
 <?php
+
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NFTController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\MarketController;
 
 /*
@@ -15,6 +17,7 @@ use App\Http\Controllers\MarketController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [NFTController::class, 'indexpage']);
 //Register-blok
 Route::get('/register', [UserController::class, 'register']);
@@ -35,6 +38,10 @@ Route::get('/nfts/{id}', [NFTController::class, 'details']);
 Route::get('/nfts/{id}/delete', [NFTController::class, "delete"]);
 Route::get('/nfts/{id}/edit', [NFTController::class, "edit"]);
 Route::post('/nfts/{id}/update', [NFTController::class, "update"]);
+
+//Comments-Blok
+Route::post('/nfts/comments/store', [CommentsController::class, 'store']);
+
 //Collection-Blok
 Route::get('/collections', [CollectionController::class, 'index']);
 Route::get('/collections/create', [CollectionController::class, 'create']);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Models\Comment;
+use \App\Models\Nft;
 
 class CommentsController extends Controller
 {
@@ -13,17 +15,9 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $comments = \DB::table('comments')->get();
+        $data['comments'] = $comments;
+        return view('nfts/detail', $data);
     }
 
     /**
@@ -32,9 +26,15 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $nft_id)
     {
-        //
+        $nft = NFT::find($nft_id);
+
+        $comment = new Comment();
+        $comment->comment = $request->input('comment');
+        $comment->post()->associate($nft);
+        $comment->save();
+        return redirect("nfts/detail");
     }
 
     /**

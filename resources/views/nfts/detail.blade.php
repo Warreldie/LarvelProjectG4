@@ -53,7 +53,20 @@
                 <h2 class="font-headers font-semibold text-3xl text-h2">
                     Comments:
                 </h2>
-                
+                <div id="comment-form">
+                    <form  method="post" action="{{ url('/nfts/comments/store') }}" enctype="multipart/form-data">
+                        <label class="text-base font-headers" for="comment">Comment:</label><br>
+                        <textarea class="w-full border-2 border-mainblue rounded outline-none px-2 py-1 mb-5" type="textarea" id="comment" name="comment" required minlength="3"></textarea>
+                            <button class="bg-mainblue px-10 py-2 font-headers text-white text-lg rounded-xl hover:bg-buttonHover" type="submit">Add comment</button>
+                    </form>
+                </div>
+                <div id="comments">
+                    @foreach ($comments as $comment)
+                    <div class="flex justify-center">
+                        <p>{{ $comment->comment }}</p>
+                    </div><br>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
