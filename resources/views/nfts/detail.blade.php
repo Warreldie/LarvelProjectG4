@@ -48,6 +48,13 @@
                 </div><br>
                 @endif
             </div>
+
+            <div class="text-center max-w-xs">
+                <h2 class="font-headers font-semibold text-3xl text-h2">
+                    Comments:
+                </h2>
+                
+            </div>
         </div>
     </div>
     <script src="{{ asset('js/nav-dropdown.js') }}"></script>
