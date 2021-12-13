@@ -82,6 +82,15 @@
 
 
         <section>
+        <div class="flex justify-center pt-5">
+    <div class="border-2 border-mainblue rounded pl-5 pr-5 pt-1 filter shadow-md max-w-8xl">
+                    <input wire:keyup="search" wire:model="search" type="text"  class="outline-none" placeholder="Search..." size="40">
+                    <button type="submit" class="">
+                        <img class="w-4" src="{{ asset('./../images/search.png') }}" alt="search">
+                    </button>
+                    </div>
+                    <h2>searching for: <em>{{ $search }}</em></h2>
+    </div>
             <div class="flex flex-row flex-wrap h-screen">
                 @foreach ($nfts as $nft)
                 <div class="bg-white m-10 px-20 py-10 rounded-xl shadow-xl max-h-60">
