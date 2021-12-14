@@ -1,9 +1,9 @@
 <div>
-    <section class="flex font-headers">
+    <section class="flex font-headers border-12">
         <div id="sidebar-out" class=" w-1/12 hidden ml-5 pt-10">
             <a href="#"><img class="h-10 w-auto transform rotate-180 border-2 border-mainblue" src="{{ asset('./../images/arrow.png') }}" alt=""> </a>
         </div>
-        <section id="sidebar" class="w-5/12 h-screen">
+        <section id="sidebar" class="w-12/12 h-screen max-w-2xl">
             <p>
             <div class="flex justify-center border-2 border-mainblue pl-20 pt-5 pb-5">
                 <img class="h-8" src="{{ asset('./../images/filter.png') }}" alt="">
@@ -81,16 +81,15 @@
 
 
 
-        <section>
-        <div class="flex justify-center pt-5">
-    <div class="border-2 border-mainblue rounded pl-5 pr-5 pt-1 filter shadow-md max-w-8xl">
+        <section class="">
+        <div class="flex justify-center pt-5 fixed left-0 right-0 ">
+             <div class="border-2 border-mainblue rounded pl-5 pr-5 pt-1 filter shadow-md max-w-8xl">
                     <input wire:keyup="search" wire:model="search" type="text"  class="outline-none" placeholder="Search..." size="40">
                     <button type="submit" class="">
                         <img class="w-4" src="{{ asset('./../images/search.png') }}" alt="search">
                     </button>
                     </div>
-                    <h2>searching for: <em>{{ $search }}</em></h2>
-    </div>
+             </div>
             <div class="flex flex-row flex-wrap h-screen">
                 @foreach ($nfts as $nft)
                 <div class="bg-white m-10 px-20 py-10 rounded-xl shadow-xl max-h-60">
