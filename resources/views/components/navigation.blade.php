@@ -8,12 +8,6 @@
                         <span>Sea hackers</span>
                     </div>
                     <!-- search -->
-                    <div class="border-2 border-mainblue rounded pl-5 pr-5 pt-1 filter shadow-md">
-                    <input type="text"  class="outline-none" placeholder="Search..." size="40">
-                    <button type="submit" class="">
-                        <img class="w-4" src="{{ asset('./../images/search.png') }}" alt="search">
-                    </button>
-                    </div>
                 </div>
                     <!-- navigation -->
                     <div class="flex space-x-5">
@@ -27,7 +21,7 @@
 
                         <!-- dropdown items -->
                         <div class="hidden z-10 absolute items-center bg-white px-2" id="dropdownlist">
-                        <a class="block pt-2" href="{{url('/profile/{$id}')}}"> My profile</a>
+                        <a class="block pt-2" href="/profile/{{Auth::id()}}"> My profile</a>
                         <a class="block pt-2" href=""> My collections</a>
                         <a class="block pt-2" href="{{url('/logout')}}"> Logout</a>
   

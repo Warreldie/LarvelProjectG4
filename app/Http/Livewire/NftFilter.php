@@ -16,6 +16,7 @@ class NftFilter extends Component
     public $collectionFilter;
     public $categoryFilter;
     public $priceWarning;
+    public $search;
 
     public function mount()
     {
@@ -53,6 +54,9 @@ class NftFilter extends Component
                 $this->nfts = Nft::where('category_id', intval($this->categoryFilter))->where('collection_id', intval($this->collectionFilter))->whereBetween('price', [$this->minPrice, $this->maxPrice])->get();
             }
         }
+    }
+    public function search(){
+        $this->nfts = Nft::where('name', 'LIKE', "%{$this->search}%")->get();
     }
 
     public function render()

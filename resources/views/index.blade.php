@@ -1,31 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts/app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Home</title>
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;400;600&display=swap" rel="stylesheet">
-</head>
-
-<body>
-   
-    <x-navigation />
-    <section class="bg-home bg-cover pb-40">
-        @if(Session::has('message'))
-        <div class="bg-green-400 text-center rounded text-white mb-5">
-            <p>
-                {{Session::get('message')}}
-            </p>
-
-            @php
-            Session::forget('message');
-            @endphp
+@section('content')
 
         </div>
         @endif
@@ -58,8 +33,6 @@
             <h2 class="font-headers font-semibold text-4xl">Featured</h2>
         </div>
 
-    </section>
-    <script src="{{ asset('js/nav-dropdown.js') }}"></script>
-</body>
+</section>
 
-</html>
+@endsection
