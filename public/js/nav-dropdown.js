@@ -1,3 +1,4 @@
+console.log("is running");
 let dropdown = document.getElementById("dropdown");
 
 dropdown.addEventListener("mouseover",function (){
@@ -10,3 +11,4 @@ dropdown.addEventListener("mouseout",function (){
     dropdownlist.classList.add("hidden");
     
 });
+
