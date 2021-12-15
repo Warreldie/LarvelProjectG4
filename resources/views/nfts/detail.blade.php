@@ -53,6 +53,7 @@
                 <h2 class="font-headers font-semibold text-3xl text-h2">
                     Comments:
                 </h2>
+                @if(isset($usersession))
                 <div id="comment-form">
                     <form method="post" action="{{ url('/nfts/comments/store'), $nft->id }}" enctype="multipart/form-data">
                         @csrf
@@ -62,6 +63,7 @@
                         <button class="bg-mainblue px-10 py-2 font-headers text-white text-lg rounded-xl hover:bg-buttonHover" type="submit">Add comment</button>
                     </form>
                 </div>
+                @endif
                 <div id="comments">
                     @foreach ($nft->comments as $comment)
                     <div class="flex justify-center">
