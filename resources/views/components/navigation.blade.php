@@ -21,7 +21,7 @@
 
                         <!-- dropdown items -->
                         <div class="hidden z-10 absolute items-center bg-white px-2" id="dropdownlist">
-                        <a class="block pt-2" href="{{url('/profile/{$id}')}}"> My profile</a>
+                        <a class="block pt-2" href="/profile/{{Auth::id()}}"> My profile</a>
                         <a class="block pt-2" href=""> My collections</a>
                         <a class="block pt-2" href="{{url('/logout')}}"> Logout</a>
   
