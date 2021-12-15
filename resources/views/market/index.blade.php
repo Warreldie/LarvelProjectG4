@@ -17,10 +17,15 @@
     <x-navigation />
     <livewire:nft-filter :collections="$collections" />
 
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
 
+
+
+    <script src="{{ asset('js/ether.js') }}"></script>
     <script src="{{ asset('js/nav-dropdown.js') }}"></script>
     <script src="{{ asset('js/sliders.js') }}"></script>
     <script src="{{ asset('js/sidebar-market.js') }}"></script>
+
     @livewireScripts
 </body>
 
