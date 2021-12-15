@@ -2,7 +2,10 @@
 
 @section('content')
 <section class="bg-gradient-to-r from-mainblue to-white block overflow-hidden pb-24">
-
+    @php
+        $creator = $nft->Creator_id;
+        $usersession = Auth::id();
+    @endphp
     <x-navigation />
     <div class="flex h-screen justify-center items-center">
 
