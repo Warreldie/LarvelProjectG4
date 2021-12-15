@@ -24,11 +24,13 @@ class NftFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'description' => $this->faker->realText(200, 2),
-            'collection_id' => $this->faker->numberBetween(1,4),
-            'category_id' => $this->faker->numberBetween(1,4),
+            'collection_id' => $this->faker->numberBetween(1, 4),
+            'category_id' => $this->faker->numberBetween(1, 4),
             'picture' => "QmcLF8BJJ7A3qs6ephCCxebeMu3ucZP62xHzZT4NrfkHER",
             'mint_id' => 0,
             'price' => 10.99,
+            "Creator_id" => 7,
+            "Owner_id" => 7
         ];
     }
 }

@@ -34,7 +34,7 @@
                 </h3> <br>
                 @if($creator == $usersession)
                 <div class="flex justify-center" id=" mintbutton">
-                    <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit" id="myBtn">Mint</button>
+                    <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit" id="button--mint">Mint</button>
                 </div><br>
                 <div class="flex justify-center">
                     <a class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" href="/nfts/{{$nft->id}}/edit">Edit</a>
@@ -48,10 +48,12 @@
                 </div><br>
                 @endif
             </div>
+            <input class="hidden" type="text" id="nft--hash" value="{{$nft->picture}}">
         </div>
     </div>
     <script src="{{ asset('js/nav-dropdown.js') }}"></script>
-
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="{{ asset('js/ether.js') }}" defer></script>
 </body>
 
 </html>

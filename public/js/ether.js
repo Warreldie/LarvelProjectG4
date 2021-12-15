@@ -16,6 +16,62 @@ class App {
         this.setupEvents();
     }
 
+    setupEvents() {
+        const mintButton = document.querySelector("#button--mint");
+        mintButton.addEventListener("click", this.mintNFT.bind(this));
+        const contract = new ethers.Contract(
+            this.contractAddress,
+            this.contractAbi,
+            this.provider
+        );
+
+        // contract.on("Investment", (from, value) => {
+        //     this.logToConsole(
+        //         `New investment from ${from} for ${ethers.utils.formatEther(
+        //             value
+        //         )}`
+        //     );
+        //     this.throwConfetti();
+        // });
+
+        // contract.on("Payout", (value) => {
+        //     this.logToConsole(
+        //         `Payout done by Chainify for ${ethers.utils.formatEther(value)}`
+        //     );
+        //     this.throwConfetti();
+        // });
+    }
+
+    async mintNFT() {
+        try {
+            //   this.logToConsole("Loading the contract code.");
+            const contract = new ethers.Contract(
+                this.contractAddress,
+                this.contractAbi,
+                this.provider
+            );
+            console.log("runs mintNFT");
+            const contractWithSigner = await contract.connect(this.signer);
+            console.log(contractWithSigner);
+            const tokenURI = document.querySelector("#nft--hash");
+            const tx = await contractWithSigner
+                .mintNFT(tokenURI, ethers.utils.parseEther("0.0002"))
+                .catch((e) => {
+                    if (e.message.includes("You can only invest once")) {
+                        // this.logToConsole("You can only invest once.");
+                    } else {
+                        console.log("Something went wrong there...");
+                        console.log(e);
+                        // this.logToConsole("Something went wrong there...");
+                    }
+                });
+            await tx.wait();
+            console.log("finished!");
+            console.log(tx);
+            // this.logToConsole("Congrats! You are now an investor!");
+        } catch (e) {}
+    }
+
     async loadAbi() {
         // this.logToConsole("Loading the contract code.");
         return fetch("../abi/MyNFT.json")
