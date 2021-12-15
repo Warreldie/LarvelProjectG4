@@ -31,7 +31,7 @@ class CommentsController extends Controller
         $comment->nft_id = $request->input('nft-id');
         $comment->author_id = Auth::id();;
         $comment->save();
-        return redirect("nfts/detail");
+        return redirect("nfts/" . $request->input('nft-id'));
     }
 
     /**
