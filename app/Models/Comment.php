@@ -9,11 +9,14 @@ class Comment extends Model
 {
     use HasFactory;
 
-    public function collection() {
+
+    public function collection()
+    {
         return $this->belongsTo(\App\Models\Nft::class);
     }
 
-    public function author() {
+    public function author()
+    {
         return $this->belongsTo(\App\Models\User::class);
     }
 }

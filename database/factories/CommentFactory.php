@@ -23,8 +23,8 @@ class CommentFactory extends Factory
     {
         return [
             'text' => $this->faker->realText(200, 2),
-            'author_id' => $this->faker->numberBetween(1,4),
-            'nft_id' => $this->faker->numberBetween(1,10),
+            'author_id' => $this->faker->numberBetween(1, 4),
+            'nft_id' => 28,
         ];
     }
 }

@@ -23,10 +23,8 @@ class NFTController extends Controller
 
     public function details($id)
     {
-        $nft = \DB::table("nfts")->where("id", $id)->first();
-        $comments = \DB::table('comments')->where("id", $id)->get();
+        $nft = NFT::find($id);
         $data["nft"] = $nft;
-        $datacomments['comments'] = $comments;
         return view("nfts/detail", $data);
     }
     public function create()
