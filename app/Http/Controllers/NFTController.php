@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Nft;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class NFTController extends Controller
@@ -21,7 +22,8 @@ class NFTController extends Controller
         return view('index', $data);
     }
 
-    public function details($id){
+    public function details($id)
+    {
         $nft = \DB::table("nfts")->where("id", $id)->first();
         $data["nft"] = $nft;
         return view("nfts/detail", $data);
@@ -37,7 +39,7 @@ class NFTController extends Controller
         $nft = new Nft();
         $nft->name = $request->input('name');
         $nft->description = $request->input('description');
-        
+
         $destination_path = "public/images/nfts";
 
         $image = $request->file("picture");
@@ -49,7 +51,7 @@ class NFTController extends Controller
         $nft->collection_id = $request->input('collection');
         $nft->mint_id = 0;
 
-        if($request->hasFile("picture")){
+        if ($request->hasFile("picture")) {
             $url = $request->file("picture");
             $upload_file_name = strtolower(str_replace(" ", "_", $request->input("name")));
             $response = Http::withHeaders([
@@ -58,30 +60,32 @@ class NFTController extends Controller
 
             $data = $response->json();
 
-            if(array_key_exists("IpfsHash", $data)){
+            if (array_key_exists("IpfsHash", $data)) {
                 $upload_file_hash = $data["IpfsHash"];
                 $size = $data["PinSize"];
 
-                if($size > 0) {
+                if ($size > 0) {
                     $nft->picture = $upload_file_hash;
                 }
             }
-            
         }
-    
+
         $nft->save();
         return redirect('nfts/');
     }
-    public function delete(Request $request, $id){
+    public function delete(Request $request, $id)
+    {
         $nft = NFT::where('id', $id)->firstorfail()->delete();
         return redirect('nfts/');
     }
-    public function edit($id){
+    public function edit($id)
+    {
         $nft = \DB::table("nfts")->where("id", $id)->first();
         $data["nft"] = $nft;
         return view("nfts/edit", $data);
     }
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $nft = NFT::find($id);
         $nft->name = $request->input("name");
         $nft->description = $request->input("description");
@@ -89,4 +93,27 @@ class NFTController extends Controller
         return redirect("/nfts/$id");
     }
 
+    public function validateNft(Request $request)
+    {
+        $body = json_decode($request->getContent());
+        $token = $body->tokenURI;
+        $nft = NFT::where("picture", $token)->first();
+        if ($nft->Owner_id == Auth::id()) {
+            return response()
+                ->json(['status' => 200]);
+        } else {
+            return response()
+                ->json(['status' => 403]);
+        }
+    }
+
+    public function saveNftToken(Request $request)
+    {
+        $body = json_decode($request->getContent());
+        $tokenURI = $body->tokenURI;
+        $tokenId = $body->tokenId;
+        NFT::where("picture", $tokenURI)->first()->update(['nft-token-id' => $tokenId, 'mint_id' => "1"]);
+        return response()
+            ->json(['status' => 200]);
+    }
 }

@@ -42,34 +42,129 @@ class App {
         // });
     }
 
+    toggleLoading(loading) {
+        if (loading) {
+            document.querySelector("#button--mint").innerHTML = "Loading...";
+        } else {
+            document.querySelector("#button--mint").innerHTML = "Mint";
+        }
+    }
+
+    toggleSuccessMessage(show, message) {
+        if (show) {
+            document.querySelector("#nft-success-msg").innerHTML = message;
+            document.querySelector("#nft-success").classList.remove("hidden");
+        } else {
+            document.querySelector("#nft-success").classList.add("hidden");
+        }
+    }
+
+    async validateNFTOwnership(tokenURI) {
+        fetch("validate", {
+            method: "POST",
+            body: JSON.stringify({ tokenURI }),
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector(
+                    'meta[name="csrf-token"]'
+                ).content,
+            },
+        })
+            .then((response) => {
+                console.log(response);
+                return response.json();
+            })
+            .then((result) => {
+                if (result.status === 200) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                return false;
+            });
+    }
+
+    async saveNftToken(tokenId, tokenURI) {
+        fetch("saveNftToken", {
+            method: "POST",
+            body: JSON.stringify({ tokenId, tokenURI }),
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector(
+                    'meta[name="csrf-token"]'
+                ).content,
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((result) => {
+                if (result.status === 200) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                return false;
+            });
+    }
+
     async mintNFT() {
         try {
-            //   this.logToConsole("Loading the contract code.");
+            this.toggleLoading(true);
             const contract = new ethers.Contract(
                 this.contractAddress,
                 this.contractAbi,
                 this.provider
             );
-            console.log("runs mintNFT");
+
+            const tokenURI = document.querySelector("#nft--hash").value;
+            if (!this.validateNFTOwnership(tokenURI)) {
+                throw "You can not mint this NFT since you are not the owner!";
+            }
+
             const contractWithSigner = await contract.connect(this.signer);
-            console.log(contractWithSigner);
-            const tokenURI = document.querySelector("#nft--hash");
             const tx = await contractWithSigner
                 .mintNFT(tokenURI, ethers.utils.parseEther("0.0002"))
                 .catch((e) => {
-                    if (e.message.includes("You can only invest once")) {
-                        // this.logToConsole("You can only invest once.");
-                    } else {
-                        console.log("Something went wrong there...");
-                        console.log(e);
-                        // this.logToConsole("Something went wrong there...");
-                    }
+                    console.log("Something went wrong there...");
+                    console.error(e);
+                    this.toggleLoading(false);
                 });
-            await tx.wait();
-            console.log("finished!");
-            console.log(tx);
+            await tx
+                .wait()
+                .then((res) => {
+                    const tokenIdString = res["events"][0]["topics"][3];
+                    const tokenId =
+                        ethers.BigNumber.from(tokenIdString).toString();
+                    return tokenId;
+                })
+                .then(async function (result) {
+                    const success = this.saveNftToken(result, tokenURI);
+                    if (!success) {
+                        this.toggleLoading(false);
+                        throw "Something went wrong when minting your NFT, try again later!";
+                    } else {
+                        this.toggleLoading(false);
+                        console.log("success!!");
+                        this.toggleSuccessMessage(
+                            true,
+                            "You successfully minted your NFT!"
+                        );
+                    }
+                })
+                .catch((e) => {
+                    console.error(e);
+                });
+
             // this.logToConsole("Congrats! You are now an investor!");
-        } catch (e) {}
+        } catch (e) {
+            console.error(e);
+            this.toggleLoading(false);
+        }
     }
 
     async loadAbi() {

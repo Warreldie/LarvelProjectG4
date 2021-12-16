@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $nft->name }}</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,8 +22,13 @@
     <div class="flex h-screen justify-center items-center">
 
         <div class="bg-white px-20 py-10 rounded-xl shadow-xl mx-30">
-
             <div class="text-center max-w-xs">
+                <div id="nft-error" class="text-center bg-red-400 text-white font-headers rounded px-1 hidden">
+                    <p id="nft-error-msg"></p>
+                </div><br>
+                <div id="nft-success" class="text-center bg-green-400 text-white font-headers rounded px-1 hidden">
+                    <p id="nft-success-msg"></p>
+                </div><br>
                 <div class="flex justify-center">
                     <img class="w-32" src="https://gateway.pinata.cloud/ipfs/{{$nft->picture}}" alt="logo">
                 </div>

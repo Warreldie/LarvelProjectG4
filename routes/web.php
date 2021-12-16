@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NFTController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\MarketController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [NFTController::class, 'indexpage']);
 //Register-blok
 Route::get('/register', [UserController::class, 'register']);
@@ -35,6 +37,8 @@ Route::get('/nfts/{id}', [NFTController::class, 'details']);
 Route::get('/nfts/{id}/delete', [NFTController::class, "delete"]);
 Route::get('/nfts/{id}/edit', [NFTController::class, "edit"]);
 Route::post('/nfts/{id}/update', [NFTController::class, "update"]);
+Route::post('/nfts/validate', [NFTController::class, 'validateNft']);
+Route::post('/nfts/saveNftToken', [NFTController::class, 'saveNftToken']);
 //Collection-Blok
 Route::get('/collections', [CollectionController::class, 'index']);
 Route::get('/collections/create', [CollectionController::class, 'create']);
