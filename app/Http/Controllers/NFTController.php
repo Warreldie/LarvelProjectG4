@@ -112,7 +112,7 @@ class NFTController extends Controller
         $body = json_decode($request->getContent());
         $tokenURI = $body->tokenURI;
         $tokenId = $body->tokenId;
-        NFT::where("picture", $tokenURI)->first()->update(['nft-token-id' => $tokenId, 'mint_id' => "1"]);
+        NFT::where("picture", $tokenURI)->first()->update(['token_id' => $tokenId, 'mint_id' => "1"]);
         return response()
             ->json(['status' => 200]);
     }

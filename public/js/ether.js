@@ -160,6 +160,9 @@ class App {
                             true,
                             "You successfully minted your NFT!"
                         );
+                        document
+                            .querySelector("#nft--not-minted")
+                            .classList.add("hidden");
                     }
                 })
                 .catch((e) => {
