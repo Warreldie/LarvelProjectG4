@@ -39,6 +39,11 @@
                     {{ $nft->description }}
                 </h3> <br>
                 @if($creator == $usersession)
+                <label for="price">Price in ETH</label>
+                <div class="border-2 border-mainblue rounded pl-5 pr-5 pt-1 filter shadow-md">
+                    <input id="nft--price" name="price" type="number" class="outline-none w-full" placeholder="Price">
+                </div>
+                <br>
                 <div class="flex justify-center" id=" mintbutton">
                     <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit" id="button--mint">Mint</button>
                 </div><br>

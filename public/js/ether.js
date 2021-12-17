@@ -121,6 +121,12 @@ class App {
                 this.provider
             );
 
+            const price = document.querySelector("#nft--price").value;
+            console.log(price, price + price, parseFloat(price));
+            console.log(isNaN(parseFloat(price)), !(parseFloat(price) >= 0));
+            if (isNaN(parseFloat(price)) || !(parseFloat(price) > 0)) {
+                throw "The price must be greater than 0";
+            }
             const tokenURI = document.querySelector("#nft--hash").value;
             if (!this.validateNFTOwnership(tokenURI)) {
                 throw "You can not mint this NFT since you are not the owner!";
@@ -128,7 +134,7 @@ class App {
 
             const contractWithSigner = await contract.connect(this.signer);
             const tx = await contractWithSigner
-                .mintNFT(tokenURI, ethers.utils.parseEther("0.0002"))
+                .mintNFT(tokenURI, ethers.utils.parseEther(price))
                 .catch((e) => {
                     console.log("Something went wrong there...");
                     console.error(e);
@@ -142,7 +148,7 @@ class App {
                         ethers.BigNumber.from(tokenIdString).toString();
                     return tokenId;
                 })
-                .then(async function (result) {
+                .then((result) => {
                     const success = this.saveNftToken(result, tokenURI);
                     if (!success) {
                         this.toggleLoading(false);
