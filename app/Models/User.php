@@ -43,4 +43,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $nft = "nft";
+    public function nft()
+    {
+        return $this->hasMany(\App\Models\Nft::class);
+    }
 }

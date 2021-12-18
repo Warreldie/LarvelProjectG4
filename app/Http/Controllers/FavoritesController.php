@@ -24,14 +24,14 @@ class FavoritesController extends Controller
             $favorite->nft_id = $request->input('nft-id');
             $favorite->user_id = Auth::id();;
             $favorite->save();
-            return redirect("nfts/" . $request->input('nft-id'), $favorite);
+            return redirect("nfts/" . $request->input('nft-id'));
         }
     }
 
 
     public function delete(Request $request)
     {
-        $favorite = Favorite::where('user_id', Auth::id())->firstorfail()->delete();
+        $favorites = \DB::table("favorites")->where('user_id', Auth::id())->firstorfail()->delete();
         return redirect("nfts/" . $request->input('nft-id'));
     }
 }

@@ -45,6 +45,7 @@ Route::post('/nfts/comments/store', [CommentsController::class, 'store']);
 
 //Favorite-Blok
 Route::post('/nfts/Favorite/store', [FavoritesController::class, 'store']);
+Route::get('/nfts/Favorite/delete', [FavoritesController::class, 'delete']);
 
 //Collection-Blok
 Route::get('/collections', [CollectionController::class, 'index']);
