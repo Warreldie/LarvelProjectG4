@@ -36,6 +36,21 @@
                     <p>This NFT has not been minted yet</p>
                 </div><br>
                 @endif
+                @if (isset($usersession))
+                @if($nft->favorite->user_id === $usersession)
+                <form method="post" action="{{ url('/nfts/Favorite/store'), $nft->id }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="nft-id" value="{{ $nft->id }}">
+                    <button class="bg-red-400 px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-red-600" type="submit" id="myfav">Remove from favorites</button>
+                </form>
+                @else
+                <form method="post" action="{{ url('/nfts/Favorite/store'), $nft->id }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="nft-id" value="{{ $nft->id }}">
+                    <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit" id="myfav">Add to favorites</button>
+                </form>
+               @endif                
+                @endif
             </div>
 
             <div class="text-center max-w-xs">

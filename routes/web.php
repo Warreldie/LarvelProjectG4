@@ -6,6 +6,7 @@ use App\Http\Controllers\NFTController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\MarketController;
+use App\Http\Controllers\FavoritesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,9 @@ Route::post('/nfts/{id}/update', [NFTController::class, "update"]);
 
 //Comments-Blok
 Route::post('/nfts/comments/store', [CommentsController::class, 'store']);
+
+//Favorite-Blok
+Route::post('/nfts/Favorite/store', [FavoritesController::class, 'store']);
 
 //Collection-Blok
 Route::get('/collections', [CollectionController::class, 'index']);

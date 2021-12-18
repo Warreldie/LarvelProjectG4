@@ -9,6 +9,7 @@ class Nft extends Model
 {
     use HasFactory;
     protected $with = ["comments"];
+    protected $favorite = "favorite";
 
     public function collection()
     {
@@ -18,5 +19,9 @@ class Nft extends Model
     public function comments()
     {
         return $this->hasMany(\App\Models\Comment::class);
+    }
+    public function favorite()
+    {
+        return $this->hasOne(\App\Models\Favorite::class);
     }
 }
