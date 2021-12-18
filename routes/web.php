@@ -39,6 +39,7 @@ Route::get('/nfts/{id}/edit', [NFTController::class, "edit"]);
 Route::post('/nfts/{id}/update', [NFTController::class, "update"]);
 Route::post('/nfts/validate', [NFTController::class, 'validateNft']);
 Route::post('/nfts/saveNftToken', [NFTController::class, 'saveNftToken']);
+Route::post('/nfts/transferNft', [NFTController::class, 'transferNft']);
 //Collection-Blok
 Route::get('/collections', [CollectionController::class, 'index']);
 Route::get('/collections/create', [CollectionController::class, 'create']);

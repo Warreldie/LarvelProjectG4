@@ -18,35 +18,33 @@ class App {
 
     setupEvents() {
         const mintButton = document.querySelector("#button--mint");
-        mintButton.addEventListener("click", this.mintNFT.bind(this));
+        const buyButton = document.querySelector("#button--buy");
+        if (mintButton) {
+            mintButton.addEventListener("click", this.mintNFT.bind(this));
+        }
+        if (buyButton) {
+            buyButton.addEventListener("click", this.buyNFT.bind(this));
+        }
         const contract = new ethers.Contract(
             this.contractAddress,
             this.contractAbi,
             this.provider
         );
-
-        // contract.on("Investment", (from, value) => {
-        //     this.logToConsole(
-        //         `New investment from ${from} for ${ethers.utils.formatEther(
-        //             value
-        //         )}`
-        //     );
-        //     this.throwConfetti();
-        // });
-
-        // contract.on("Payout", (value) => {
-        //     this.logToConsole(
-        //         `Payout done by Chainify for ${ethers.utils.formatEther(value)}`
-        //     );
-        //     this.throwConfetti();
-        // });
     }
 
-    toggleLoading(loading) {
+    toggleMintLoading(loading) {
         if (loading) {
             document.querySelector("#button--mint").innerHTML = "Loading...";
         } else {
             document.querySelector("#button--mint").innerHTML = "Mint";
+        }
+    }
+
+    toggleBuyLoading(loading) {
+        if (loading) {
+            document.querySelector("#button--buy").innerHTML = "Loading...";
+        } else {
+            document.querySelector("#button--buy").innerHTML = "Buy";
         }
     }
 
@@ -112,9 +110,35 @@ class App {
             });
     }
 
+    async transferNft(tokenId, nftId) {
+        fetch("transferNft", {
+            method: "POST",
+            body: JSON.stringify({ tokenId, nftId }),
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector(
+                    'meta[name="csrf-token"]'
+                ).content,
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((result) => {
+                if (result.status === 200) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                return false;
+            });
+    }
+
     async mintNFT() {
         try {
-            this.toggleLoading(true);
+            this.toggleMintLoading(true);
             const contract = new ethers.Contract(
                 this.contractAddress,
                 this.contractAbi,
@@ -139,7 +163,7 @@ class App {
                 .catch((e) => {
                     console.log("Something went wrong there...");
                     console.error(e);
-                    this.toggleLoading(false);
+                    this.toggleMintLoading(false);
                 });
             await tx
                 .wait()
@@ -156,10 +180,10 @@ class App {
                         nftId
                     );
                     if (!success) {
-                        this.toggleLoading(false);
+                        this.toggleMintLoading(false);
                         throw "Something went wrong when minting your NFT, try again later!";
                     } else {
-                        this.toggleLoading(false);
+                        this.toggleMintLoading(false);
                         console.log("success!!");
                         this.toggleSuccessMessage(
                             true,
@@ -177,7 +201,51 @@ class App {
             // this.logToConsole("Congrats! You are now an investor!");
         } catch (e) {
             console.error(e);
-            this.toggleLoading(false);
+            this.toggleMintLoading(false);
+        }
+    }
+
+    async buyNFT() {
+        try {
+            this.toggleBuyLoading(true);
+            const contract = new ethers.Contract(
+                this.contractAddress,
+                this.contractAbi,
+                this.provider
+            );
+            const price = document.querySelector("#nft--setprice").value;
+            const tokenId = document.querySelector("#nft--token").value;
+            const nftId = document.querySelector("#nft--id").value;
+            console.log(tokenId);
+            const contractWithSigner = await contract.connect(this.signer);
+            const tx = await contractWithSigner
+                .buyNFT(parseInt(tokenId), {
+                    value: ethers.utils.parseEther(price),
+                })
+                .catch((e) => {
+                    console.log("Something went wrong there...");
+                    console.error(e);
+                    this.toggleBuyLoading(false);
+                });
+            await tx
+                .wait()
+                .then((res) => {
+                    this.transferNft(tokenId, nftId);
+                    this.toggleBuyLoading(false);
+                    this.toggleSuccessMessage(
+                        true,
+                        "You Successfully bought this NFT!"
+                    );
+                    document
+                        .querySelector("#nft--not-forsale")
+                        .classList.add("hidden");
+                })
+                .catch((e) => {
+                    console.error(e);
+                    this.toggleBuyLoading(false);
+                });
+        } catch (e) {
+            console.error(e);
         }
     }
 

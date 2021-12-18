@@ -38,7 +38,13 @@
                 <h3 class="font-headers text-base text-xl z-10">
                     {{ $nft->description }}
                 </h3> <br>
-                @if($creator == $usersession && $nft->token_id == "")
+                @if($nft->forsale)
+                <h3 class="font-headers text-base text-xl z-10">
+                    {{ $nft->price }} ETH
+                </h3> <br>
+                @endif
+                @if($creator == $usersession && $nft->Owner_id == $usersession)
+                @if($nft->forsale == false)
                 <div id="nft--not-minted">
                     <label for="price">Price in ETH</label>
                     <div class="border-2 border-mainblue rounded pl-5 pr-5 pt-1 filter shadow-md">
@@ -57,12 +63,43 @@
                 </div>
                 @else
                 <div class="flex justify-center" id="mintdisable">
-                    <p>This NFT has not been minted yet</p>
+                    <p> You minted your NFT and its now for sale</p>
                 </div><br>
+                @endif
+                @elseif($usersession == $nft->Owner_id)
+                @if($nft->forsale == false)
+                <div id="nft--not-forsale">
+                    <label for="price">Price in ETH</label>
+                    <div class="border-2 border-mainblue rounded pl-5 pr-5 pt-1 filter shadow-md">
+                        <input id="nft--price" name="price" type="number" class="outline-none w-full" placeholder="Price">
+                    </div>
+                    <br>
+                    <div class="flex justify-center" id=" mintbutton">
+                        <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit" id="button--sell">Sell</button>
+                    </div><br>
+                    @else
+                    <div class="flex justify-center" id="mintdisable">
+                        <p>You put this NFT for sale</p>
+                    </div><br>
+                </div>
+                @endif
+                @else
+                @if($nft->forsale == false)
+                <div class="flex justify-center" id="mintdisable">
+                    <p>This nft is not for sale!</p>
+                </div><br>
+                @else
+
+                <div class="flex justify-center" id=" mintbutton">
+                    <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit" id="button--buy">Buy</button>
+                </div><br>
+                @endif
                 @endif
             </div>
             <input type="hidden" id="nft--hash" value="{{$nft->picture}}">
             <input type="hidden" id="nft--id" value="{{$nft->id}}">
+            <input type="hidden" id="nft--token" value="{{$nft->token_id}}">
+            <input type="hidden" id="nft--setprice" value="{{$nft->price}}">
         </div>
     </div>
     <script src="{{ asset('js/nav-dropdown.js') }}"></script>

@@ -12,7 +12,8 @@ class Nft extends Model
         'token_id',
         'mint_id',
         'price',
-        'forsale'
+        'forsale',
+        'Owner_id'
     ];
 
     public function collection()
