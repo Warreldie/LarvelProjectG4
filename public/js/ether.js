@@ -59,10 +59,10 @@ class App {
         }
     }
 
-    async validateNFTOwnership(tokenURI) {
+    async validateNFTOwnership(nftId) {
         fetch("validate", {
             method: "POST",
-            body: JSON.stringify({ tokenURI }),
+            body: JSON.stringify({ nftId }),
             headers: {
                 "X-CSRF-TOKEN": document.querySelector(
                     'meta[name="csrf-token"]'
@@ -86,10 +86,10 @@ class App {
             });
     }
 
-    async saveNftToken(tokenId, tokenURI) {
+    async saveNftToken(tokenId, price, nftId) {
         fetch("saveNftToken", {
             method: "POST",
-            body: JSON.stringify({ tokenId, tokenURI }),
+            body: JSON.stringify({ tokenId, price, nftId }),
             headers: {
                 "X-CSRF-TOKEN": document.querySelector(
                     'meta[name="csrf-token"]'
@@ -128,7 +128,8 @@ class App {
                 throw "The price must be greater than 0";
             }
             const tokenURI = document.querySelector("#nft--hash").value;
-            if (!this.validateNFTOwnership(tokenURI)) {
+            const nftId = document.querySelector("#nft--id").value;
+            if (!this.validateNFTOwnership(nftId)) {
                 throw "You can not mint this NFT since you are not the owner!";
             }
 
@@ -149,7 +150,11 @@ class App {
                     return tokenId;
                 })
                 .then((result) => {
-                    const success = this.saveNftToken(result, tokenURI);
+                    const success = this.saveNftToken(
+                        result,
+                        parseFloat(price),
+                        nftId
+                    );
                     if (!success) {
                         this.toggleLoading(false);
                         throw "Something went wrong when minting your NFT, try again later!";

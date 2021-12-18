@@ -10,7 +10,9 @@ class Nft extends Model
     use HasFactory;
     protected $fillable = [
         'token_id',
-        'mint_id'
+        'mint_id',
+        'price',
+        'forsale'
     ];
 
     public function collection()

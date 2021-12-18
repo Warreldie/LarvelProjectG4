@@ -39,7 +39,8 @@ class NFTController extends Controller
         $nft = new Nft();
         $nft->name = $request->input('name');
         $nft->description = $request->input('description');
-
+        $nft->Creator_id = Auth::id();
+        $nft->Owner_id = Auth::id();
         $destination_path = "public/images/nfts";
 
         $image = $request->file("picture");
@@ -96,8 +97,8 @@ class NFTController extends Controller
     public function validateNft(Request $request)
     {
         $body = json_decode($request->getContent());
-        $token = $body->tokenURI;
-        $nft = NFT::where("picture", $token)->first();
+        $id = $body->nftId;
+        $nft = NFT::find($id);
         if ($nft->Owner_id == Auth::id()) {
             return response()
                 ->json(['status' => 200]);
@@ -110,9 +111,10 @@ class NFTController extends Controller
     public function saveNftToken(Request $request)
     {
         $body = json_decode($request->getContent());
-        $tokenURI = $body->tokenURI;
+        $id = $body->nftId;
         $tokenId = $body->tokenId;
-        NFT::where("picture", $tokenURI)->first()->update(['token_id' => $tokenId, 'mint_id' => "1"]);
+        $price = $body->price;
+        NFT::find($id)->update(['token_id' => $tokenId, 'mint_id' => "1", 'price' => $price, 'forsale' => true]);
         return response()
             ->json(['status' => 200]);
     }

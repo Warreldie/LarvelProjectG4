@@ -61,7 +61,8 @@
                 </div><br>
                 @endif
             </div>
-            <input class="hidden" type="text" id="nft--hash" value="{{$nft->picture}}">
+            <input type="hidden" id="nft--hash" value="{{$nft->picture}}">
+            <input type="hidden" id="nft--id" value="{{$nft->id}}">
         </div>
     </div>
     <script src="{{ asset('js/nav-dropdown.js') }}"></script>
