@@ -19,11 +19,15 @@ class App {
     setupEvents() {
         const mintButton = document.querySelector("#button--mint");
         const buyButton = document.querySelector("#button--buy");
+        const sellButton = document.querySelector("#button--sell");
         if (mintButton) {
             mintButton.addEventListener("click", this.mintNFT.bind(this));
         }
         if (buyButton) {
             buyButton.addEventListener("click", this.buyNFT.bind(this));
+        }
+        if (sellButton) {
+            sellButton.addEventListener("click", this.sellNFT.bind(this));
         }
         const contract = new ethers.Contract(
             this.contractAddress,
@@ -45,6 +49,13 @@ class App {
             document.querySelector("#button--buy").innerHTML = "Loading...";
         } else {
             document.querySelector("#button--buy").innerHTML = "Buy";
+        }
+    }
+    toggleSellLoading(loading) {
+        if (loading) {
+            document.querySelector("#button--sell").innerHTML = "Loading...";
+        } else {
+            document.querySelector("#button--sell").innerHTML = "Sell";
         }
     }
 
@@ -136,6 +147,32 @@ class App {
             });
     }
 
+    async putNftForSale(nftId) {
+        fetch("sellNft", {
+            method: "POST",
+            body: JSON.stringify({ price, nftId }),
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector(
+                    'meta[name="csrf-token"]'
+                ).content,
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((result) => {
+                if (result.status === 200) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                return false;
+            });
+    }
+
     async mintNFT() {
         try {
             this.toggleMintLoading(true);
@@ -197,8 +234,6 @@ class App {
                 .catch((e) => {
                     console.error(e);
                 });
-
-            // this.logToConsole("Congrats! You are now an investor!");
         } catch (e) {
             console.error(e);
             this.toggleMintLoading(false);
@@ -249,6 +284,48 @@ class App {
         }
     }
 
+    async sellNFT() {
+        try {
+            this.toggleSellLoading(true);
+            const contract = new ethers.Contract(
+                this.contractAddress,
+                this.contractAbi,
+                this.provider
+            );
+
+            const price = document.querySelector("#nft--price").value;
+            if (isNaN(parseFloat(price)) || !(parseFloat(price) > 0)) {
+                throw "The price must be greater than 0";
+            }
+            const nftId = document.querySelector("#nft--id").value;
+            const tokenId = document.querySelector("#nft--token").value;
+            if (!this.validateNFTOwnership(nftId)) {
+                throw "You can not sell this NFT since you are not the owner!";
+            }
+
+            const contractWithSigner = await contract.connect(this.signer);
+            const tx = await contractWithSigner
+                .putUpForSale(tokenId, ethers.utils.parseEther(price))
+                .catch((e) => {
+                    console.log("Something went wrong there...");
+                    console.error(e);
+                    this.toggleMintLoading(false);
+                });
+            await tx
+                .wait()
+                .then((res) => {
+                    this.putNftForSale(parseFloat(price), nftId);
+                    this.toggleSellLoading(false);
+                })
+                .catch((e) => {
+                    console.error(e);
+                });
+        } catch (e) {
+            console.error(e);
+            this.toggleMintLoading(false);
+        }
+    }
+
     async loadAbi() {
         // this.logToConsole("Loading the contract code.");
         return fetch("../abi/MyNFT.json")
@@ -277,7 +354,6 @@ class App {
                 method: "eth_requestAccounts",
             });
             this.account = accounts[0];
-            // this.logToConsole(`Cool, we're connected to ${this.account}`);
             await this.setupProvider();
         }
     }

@@ -128,4 +128,14 @@ class NFTController extends Controller
         return response()
             ->json(['status' => 200]);
     }
+
+    public function sellNft(Request $request)
+    {
+        $body = json_decode($request->getContent());
+        $id = $body->nftId;
+        $price = $body->price;
+        NFT::find($id)->update(['price' => $price, 'forsale' => true]);
+        return response()
+            ->json(['status' => 200]);
+    }
 }
