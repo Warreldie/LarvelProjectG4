@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class UserSeeder extends Seeder
         $user->description = "I am Fluppe";
         $user->picture = "images/default.jpeg";
         $user->email = "fluppe@test.com";
-        $user->password = "12345";
+        $user->password = Hash::make("12345");
         $user->save();
 
         $user2 = new \App\Models\User();
@@ -26,7 +27,7 @@ class UserSeeder extends Seeder
         $user2->description = "I am Glenn";
         $user2->picture = "images/default.jpeg";
         $user2->email = "glenn@test.com";
-        $user2->password = "12345";
+        $user2->password = Hash::make("12345");
         $user2->save();
 
         $user3 = new \App\Models\User();
@@ -34,7 +35,7 @@ class UserSeeder extends Seeder
         $user3->description = "I am Ward";
         $user3->picture = "images/default.jpeg";
         $user3->email = "ward@test.com";
-        $user3->password = "12345";
+        $user3->password = Hash::make("12345");
         $user3->save();
 
         $user4 = new \App\Models\User();
@@ -42,7 +43,7 @@ class UserSeeder extends Seeder
         $user4->description = "I am Aaron";
         $user4->picture = "default.jpeg";
         $user4->email = "aaron@test.com";
-        $user4->password = "12345";
+        $user4->password = Hash::make("12345");
         $user4->save();
     }
 }

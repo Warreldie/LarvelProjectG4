@@ -7,7 +7,7 @@
 
         <div class="text-center bg-white px-20 py-10 rounded-xl shadow-xl mx-30">
             <div class="flex justify-center">
-                <img class="w-32" src="{{ asset('storage/' . $nft->picture) }}" alt="logo">
+                <img class="w-32" src="https://gateway.pinata.cloud/ipfs/{{$nft->picture}}" alt="logo">
             </div>
 
             <div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Nft;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class NFTController extends Controller
@@ -38,7 +39,8 @@ class NFTController extends Controller
         $nft = new Nft();
         $nft->name = $request->input('name');
         $nft->description = $request->input('description');
-
+        $nft->Creator_id = Auth::id();
+        $nft->Owner_id = Auth::id();
         $destination_path = "public/images/nfts";
 
         $image = $request->file("picture");
@@ -90,5 +92,50 @@ class NFTController extends Controller
         $nft->description = $request->input("description");
         $nft->save();
         return redirect("/nfts/$id");
+    }
+
+    public function validateNft(Request $request)
+    {
+        $body = json_decode($request->getContent());
+        $id = $body->nftId;
+        $nft = NFT::find($id);
+        if ($nft->Owner_id == Auth::id()) {
+            return response()
+                ->json(['status' => 200]);
+        } else {
+            return response()
+                ->json(['status' => 403]);
+        }
+    }
+
+    public function saveNftToken(Request $request)
+    {
+        $body = json_decode($request->getContent());
+        $id = $body->nftId;
+        $tokenId = $body->tokenId;
+        $price = $body->price;
+        NFT::find($id)->update(['token_id' => $tokenId, 'mint_id' => "1", 'price' => $price, 'forsale' => true]);
+        return response()
+            ->json(['status' => 200]);
+    }
+
+    public function transferNft(Request $request)
+    {
+        $body = json_decode($request->getContent());
+        $id = $body->nftId;
+        $user = Auth::id();
+        NFT::find($id)->update(['Owner_id' => $user, 'forsale' => false]);
+        return response()
+            ->json(['status' => 200]);
+    }
+
+    public function sellNft(Request $request)
+    {
+        $body = json_decode($request->getContent());
+        $id = $body->nftId;
+        $price = $body->price;
+        NFT::find($id)->update(['price' => $price, 'forsale' => true]);
+        return response()
+            ->json(['status' => 200]);
     }
 }

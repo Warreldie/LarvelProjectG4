@@ -9,6 +9,13 @@ class Nft extends Model
 {
     use HasFactory;
     protected $with = ["comments"];
+    protected $fillable = [
+        'token_id',
+        'mint_id',
+        'price',
+        'forsale',
+        'Owner_id'
+    ];
 
     public function collection()
     {
