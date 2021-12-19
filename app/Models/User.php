@@ -44,16 +44,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    protected $with = ["nfts"];
-    protected $favorite = ["favorite"];
-
-    public function favorite()
-    {
-        return $this->hasMany(\App\Models\Favorite::class);
-    }
-    public function nfts()
-    {
-        return $this->hasMany(\App\Models\Nft::class);
-    }
 }

@@ -13,9 +13,12 @@ class Favorite extends Model
     {
         return $this->belongsTo(\App\Models\Nft::class);
     }
-
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class);
+    }
+    public function nft()
+    {
+        return $this->belongsTo(\App\Models\NFT::class);
     }
 }

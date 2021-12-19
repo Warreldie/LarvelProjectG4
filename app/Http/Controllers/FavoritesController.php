@@ -31,7 +31,7 @@ class FavoritesController extends Controller
 
     public function destroy(Request $request)
     {
-        $favorites = \DB::table("favorites")->where('user_id', Auth::id())->where('nft_id', $request->input('nft-id'))->delete();
+        $favorites = \DB::table("favorites")->where('user_id', Auth::id())->delete();
         return redirect("nfts/" . $request->input('nft-id'));
     }
 }
