@@ -68,6 +68,15 @@ class App {
         }
     }
 
+    toggleErrorMessage(show, message) {
+        if (show) {
+            document.querySelector("#nft-error-msg").innerHTML = message;
+            document.querySelector("#nft-error").classList.remove("hidden");
+        } else {
+            document.querySelector("#nft-error").classList.add("hidden");
+        }
+    }
+
     async validateNFTOwnership(nftId) {
         fetch("validate", {
             method: "POST",
@@ -186,12 +195,14 @@ class App {
             console.log(price, price + price, parseFloat(price));
             console.log(isNaN(parseFloat(price)), !(parseFloat(price) >= 0));
             if (isNaN(parseFloat(price)) || !(parseFloat(price) > 0)) {
-                throw "The price must be greater than 0";
+                throw new Error("The price must be greater than 0");
             }
             const tokenURI = document.querySelector("#nft--hash").value;
             const nftId = document.querySelector("#nft--id").value;
             if (!this.validateNFTOwnership(nftId)) {
-                throw "You can not mint this NFT since you are not the owner!";
+                throw new Error(
+                    "You can not mint this NFT since you are not the owner!"
+                );
             }
 
             const contractWithSigner = await contract.connect(this.signer);
@@ -218,7 +229,9 @@ class App {
                     );
                     if (!success) {
                         this.toggleMintLoading(false);
-                        throw "Something went wrong when minting your NFT, try again later!";
+                        throw new Error(
+                            "Something went wrong when minting your NFT, try again later!"
+                        );
                     } else {
                         this.toggleMintLoading(false);
                         console.log("success!!");
@@ -226,16 +239,19 @@ class App {
                             true,
                             "You successfully minted your NFT!"
                         );
+                        this.toggleErrorMessage(false, "");
                         document
                             .querySelector("#nft--not-minted")
                             .classList.add("hidden");
                     }
                 })
                 .catch((e) => {
+                    this.toggleErrorMessage(true, e.message);
                     console.error(e);
                 });
         } catch (e) {
             console.error(e);
+            this.toggleErrorMessage(true, e.message);
             this.toggleMintLoading(false);
         }
     }
@@ -271,12 +287,14 @@ class App {
                         true,
                         "You Successfully bought this NFT!"
                     );
+                    this.toggleErrorMessage(false, "");
                     document
                         .querySelector("#nft--not-forsale")
                         .classList.add("hidden");
                 })
                 .catch((e) => {
                     console.error(e);
+                    this.toggleErrorMessage(true, e.message);
                     this.toggleBuyLoading(false);
                 });
         } catch (e) {
@@ -295,12 +313,14 @@ class App {
 
             const price = document.querySelector("#nft--price").value;
             if (isNaN(parseFloat(price)) || !(parseFloat(price) > 0)) {
-                throw "The price must be greater than 0";
+                throw new Error("The price must be greater than 0");
             }
             const nftId = document.querySelector("#nft--id").value;
             const tokenId = document.querySelector("#nft--token").value;
             if (!this.validateNFTOwnership(nftId)) {
-                throw "You can not sell this NFT since you are not the owner!";
+                throw new Error(
+                    "You can not sell this NFT since you are not the owner!"
+                );
             }
 
             const contractWithSigner = await contract.connect(this.signer);
@@ -309,6 +329,7 @@ class App {
                 .catch((e) => {
                     console.log("Something went wrong there...");
                     console.error(e);
+                    this.toggleErrorMessage(true, e.message);
                     this.toggleMintLoading(false);
                 });
             await tx
@@ -322,24 +343,22 @@ class App {
                 });
         } catch (e) {
             console.error(e);
+            this.toggleErrorMessage(true, e.message);
             this.toggleMintLoading(false);
         }
     }
 
     async loadAbi() {
-        // this.logToConsole("Loading the contract code.");
         return fetch("../abi/MyNFT.json")
             .then((response) => {
                 return response.json();
             })
             .then((json) => {
                 this.contractAbi = json;
-                // this.logToConsole("Contract loaded, you can now invest. 😎");
             });
     }
 
     async contractLoadDetails() {
-        // this.logToConsole("Loading contract details.");
         const contract = new ethers.Contract(
             this.contractAddress,
             this.contractAbi,
@@ -348,7 +367,6 @@ class App {
     }
 
     async loginWithMetaMask() {
-        // https://docs.metamask.io/guide/getting-started.html
         if (typeof window.ethereum !== "undefined") {
             const accounts = await ethereum.request({
                 method: "eth_requestAccounts",

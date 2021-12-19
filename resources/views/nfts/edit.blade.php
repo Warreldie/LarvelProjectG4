@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;400;600&display=swap">
 </head>
 
 <body class="bg-gradient-to-r from-mainblue to-white">
@@ -19,7 +18,7 @@
 
         <div class="text-center bg-white px-20 py-10 rounded-xl shadow-xl mx-30">
             <div class="flex justify-center">
-                <img class="w-32" src="{{ asset('storage/' . $nft->picture) }}" alt="logo">
+                <img class="w-32" src="https://gateway.pinata.cloud/ipfs/{{$nft->picture}}" alt="logo">
             </div>
 
             <div>
