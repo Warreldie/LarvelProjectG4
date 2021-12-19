@@ -288,9 +288,7 @@ class App {
                         "You Successfully bought this NFT!"
                     );
                     this.toggleErrorMessage(false, "");
-                    document
-                        .querySelector("#nft--not-forsale")
-                        .classList.add("hidden");
+                    document.querySelector("#nft--buy").classList.add("hidden");
                 })
                 .catch((e) => {
                     console.error(e);

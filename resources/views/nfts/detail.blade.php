@@ -77,10 +77,11 @@
                     <p>This nft is not for sale!</p>
                 </div><br>
                 @else
-
-                <div class="flex justify-center" id=" mintbutton">
-                    <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit" id="button--buy">Buy</button>
-                </div><br>
+                <div id="nft--buy">
+                    <div class="flex justify-center" id=" mintbutton">
+                        <button class="bg-mainblue px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-buttonHover" type="submit" id="button--buy">Buy</button>
+                    </div><br>
+                </div>
                 @endif
                 @endif
             </div>
