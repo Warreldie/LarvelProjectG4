@@ -27,6 +27,12 @@
         <h3 class="text-h3 font-headers font-regular text-3xl mt-4">
             collect and trade
         </h3>
+        <h2>Prize of 1ETH</h2>
+            <ul>
+                <li>USD: {{$response["USD"]}} $</li>
+                <li>EUR: {{$response["EUR"]}} €</li>
+                <li>BTC: {{$response["BTC"]}} BTC</li>
+            </ul>
         <div class="mt-10 font-headers font-extralight text-2xl flex justify-around">
             <a class="rounded bg-white  py-0.5 px-8 text-regular shadow-md" href="">More info</a>
             <a class="rounded bg-white  py-0.5 px-8 text-regular shadow-md" href="">Register</a>
