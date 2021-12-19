@@ -37,12 +37,14 @@
                 </div><br>
                 @endif
                 @if (isset($usersession))
+                @if(isset($nft->favorite->user_id))
                 @if($nft->favorite->user_id === $usersession)
-                <form  action="{{ url('/nfts/Favorite/delete'), $nft->id }}" enctype="multipart/form-data">
+                <form  action="{{ url('/nfts/Favorite/destroy'), $nft->id }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="nft-id" value="{{ $nft->id }}">
                     <button class="bg-red-400 px-20 py-2 font-headers text-white text-2xl rounded-xl hover:bg-red-600" type="submit" id="myfav">Remove from favorites</button>
                 </form>
+                @endif
                 @else
                 <form method="post" action="{{ url('/nfts/Favorite/store'), $nft->id }}" enctype="multipart/form-data">
                     @csrf
