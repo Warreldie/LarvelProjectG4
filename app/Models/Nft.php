@@ -24,4 +24,8 @@ class Nft extends Model
     {
         return $this->hasOne(\App\Models\Favorite::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }
