@@ -7,9 +7,9 @@
         $usersession = Auth::id();
     @endphp
     <x-navigation />
-    <div class="flex h-screen justify-center items-center">
+    <div class="flex justify-center items-center ">
 
-        <div class="bg-white px-20 py-10 rounded-xl shadow-xl mx-30">
+        <div class="bg-white px-20 py-10 rounded-xl shadow-xls overflow-hidden mb-15 mt-16">
 
             <div class="text-center max-w-xs">
                 <div class="flex justify-center">
