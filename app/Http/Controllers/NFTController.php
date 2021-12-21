@@ -17,8 +17,9 @@ class NFTController extends Controller
     }
     public function indexpage()
     {
-        $nfts = \DB::table('nfts')->get();
-        $data['nfts'] = $nfts;
+        $url = "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR";
+        $response = Http::get($url)->json();
+        $data['response'] = $response;
         return view('index', $data);
     }
 
